@@ -25,6 +25,7 @@ body {
 
 a {
   color: grey;
+  font-family: var(--font-primary);
 }
 
 h1,
@@ -42,7 +43,7 @@ h6 {
   text-align: center;
   margin: 0 auto;
   color: #333;
-  padding: 0 15px;
+  padding: 70px 15px;
 }
 
 .logo {
@@ -66,7 +67,8 @@ h6 {
   margin-bottom: 15px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  font-size: 16px;
+  font-size: 18px;
+  font-family: var(--font-primary);
 }
 
 .password {
@@ -75,7 +77,8 @@ h6 {
   margin-bottom: 15px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  font-size: 16px;
+  font-size: 18px;
+  font-family: var(--font-primary);
 }
 
 .forgotpw {
@@ -94,6 +97,7 @@ h6 {
   border: 0;
   border-radius: 5px;
   font-size: 16px;
+  font-family: var(--font-primary);
 }
 
 .register-account {
