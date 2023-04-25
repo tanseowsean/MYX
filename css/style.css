@@ -1,0 +1,82 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: grey;
+}
+
+.container {
+  max-width: 640px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  color: #333;
+  padding: 0 15px;
+}
+
+.logo {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 30px;
+  margin-top: 30px;
+  text-align: left;
+}
+
+.logo img {
+  margin-right: 10px;
+}
+
+.email {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.password {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.forgotpw {
+  width: 100%;
+  text-align: left;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.signin {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 30px;
+  background-color: #666;
+  color: #fff;
+  border: 0;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.register-account {
+  text-align: left;
+  display: block;
+}
