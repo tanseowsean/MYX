@@ -43,7 +43,7 @@ h6 {
   text-align: center;
   margin: 0 auto;
   color: #333;
-  padding: 70px 15px;
+  padding: 70px 15px 70px;
 }
 
 .logo {
@@ -67,7 +67,7 @@ h6 {
   margin-bottom: 15px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  font-size: 18px;
+  font-size: 16px;
   font-family: var(--font-primary);
 }
 
@@ -77,7 +77,7 @@ h6 {
   margin-bottom: 15px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  font-size: 18px;
+  font-size: 16px;
   font-family: var(--font-primary);
 }
 
