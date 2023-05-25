@@ -1,0 +1,211 @@
+html {
+	margin: 0;
+	padding: 0;
+  }
+  
+  * {
+	box-sizing: border-box;
+	font-family: 'Open Sans', san-serif;
+  }
+  
+  img {
+	max-width: 100%;
+  }
+  
+  body {
+	margin: 0;
+  }
+  
+  a {
+	color: grey;
+  }
+  
+  .container {
+	width: 100%;
+	text-align: center;
+	margin: 0 auto;
+	color: #333;
+	/* max-width: 1200px; */
+  }
+  
+  .container.signin-pg {
+	padding: 70px 15px 70px;
+	max-width: 640px;
+  }
+  
+  .logo {
+	margin-bottom: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 700;
+	font-size: 30px;
+	margin-top: 30px;
+	text-align: left;
+  }
+  
+  .logo img {
+	margin-right: 10px;
+  }
+  
+  .email {
+	width: 100%;
+	padding: 15px;
+	margin-bottom: 15px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	font-size: 16px;
+  }
+  
+  .password {
+	width: 100%;
+	padding: 15px;
+	margin-bottom: 15px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	font-size: 16px;
+  }
+  
+  .forgotpw {
+	width: 100%;
+	text-align: left;
+	display: block;
+	margin-bottom: 20px;
+  }
+  
+  .signin-btn {
+	width: 100%;
+	padding: 15px;
+	margin-bottom: 30px;
+	background-color: #666;
+	color: #fff;
+	border: 0;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+  }
+  
+  .register-account {
+	text-align: left;
+	display: block;
+  }
+  
+  header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 25px 20px 0 5px;
+  }
+  
+  header .logo {
+	margin: 0;
+  }
+  
+  header .search {
+	max-width: 400px;
+	width: 100%;
+	display: flex;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px 15px;
+  }
+  
+  header .search input {
+	width: 100%;
+	border: 0;
+	font-size: 16px;
+	font-weight: 500;
+  }
+  
+  header .search input:focus {
+	outline: none;
+  }
+  
+  header .account img {
+	height: 30px;
+  }
+  
+  header .account {
+	display: flex;
+	align-items: center;
+  }
+  
+  header .account .text {
+	margin-right: 10px;
+	font-weight: 500;
+  }
+  
+  header .search button {
+	background: transparent;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	border: 0;
+  }
+  
+  header .search button img {
+	height: 22px;
+  }
+  
+  .menu {
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	padding: 20px 0;
+	display: flex;
+	justify-content: center;
+  }
+  
+  .menu .item {
+	width: 6%;
+	margin: 0 2%;
+	text-decoration: none;
+	font-size: 13px;
+  }
+  
+  .menu .item .icon {
+	width: 80%;
+	margin: 0 auto;
+	transition: 0.3s;
+  }
+  
+  .menu .item .icon:hover {
+	opacity: 0.8;
+  }
+  
+  .grid {
+	max-width: 250px;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 50px 0 0 0;
+	justify-content: space-between;
+  }
+  
+  .grid .item {
+	width: 47%;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	padding: 30px;
+	text-decoration: none;
+	font-size: 13px;
+	border-radius: 15px;
+  }
+  
+  .grid .item:hover {
+	opacity: 0.8;
+  }
+  
+  footer {
+	color: #fff;
+	margin-top: 50px;
+	background-color: #333;
+	padding: 25px 0 20px 0;
+  }
+  
+  footer .logo {
+	margin: 0 0 20px 0;
+  }
+  
+  footer .copyright {
+	font-size: 13px;
+  }
