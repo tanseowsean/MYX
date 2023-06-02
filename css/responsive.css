@@ -20,6 +20,29 @@
 	.viewport:after {
 		content: 'LG, 992px and above';
 	}
+
+	header .search {
+		order: 2;
+		max-width: 400px;
+	}
+
+	header .account {
+		order: 3;
+	}
+
+	.table-wrapper {}
+
+	.hamburger {
+		display: none;
+	}
+
+	.menu {
+		display: flex;
+	}
+
+	.main-title .subtitle {
+		display: none;
+	}
 }
 
 /* Extra large devices (large desktops, 1200px and up) */

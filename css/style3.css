@@ -1,39 +1,39 @@
 html {
 	margin: 0;
 	padding: 0;
-  }
-  
-  * {
+}
+
+* {
 	box-sizing: border-box;
 	font-family: 'Open Sans', san-serif;
-  }
-  
-  img {
+}
+
+img {
 	max-width: 100%;
-  }
-  
-  body {
+}
+
+body {
 	margin: 0;
-  }
-  
-  a {
+}
+
+a {
 	color: grey;
-  }
-  
-  .container {
+}
+
+.container {
 	width: 100%;
 	text-align: center;
 	margin: 0 auto;
 	color: #333;
 	/* max-width: 1200px; */
-  }
-  
-  .container.signin-pg {
+}
+
+.container.signin-pg {
 	padding: 70px 15px 70px;
 	max-width: 640px;
-  }
-  
-  .logo {
+}
+
+.logo {
 	margin-bottom: 30px;
 	display: flex;
 	justify-content: center;
@@ -42,38 +42,38 @@ html {
 	font-size: 30px;
 	margin-top: 30px;
 	text-align: left;
-  }
-  
-  .logo img {
+}
+
+.logo img {
 	margin-right: 10px;
-  }
-  
-  .email {
+}
+
+.email {
 	width: 100%;
 	padding: 15px;
 	margin-bottom: 15px;
 	border-radius: 5px;
 	border: 1px solid #ccc;
 	font-size: 16px;
-  }
-  
-  .password {
+}
+
+.password {
 	width: 100%;
 	padding: 15px;
 	margin-bottom: 15px;
 	border-radius: 5px;
 	border: 1px solid #ccc;
 	font-size: 16px;
-  }
-  
-  .forgotpw {
+}
+
+.forgotpw {
 	width: 100%;
 	text-align: left;
 	display: block;
 	margin-bottom: 20px;
-  }
-  
-  .signin-btn {
+}
+
+.signin-btn {
 	width: 100%;
 	padding: 15px;
 	margin-bottom: 30px;
@@ -83,105 +83,112 @@ html {
 	border-radius: 5px;
 	font-size: 16px;
 	cursor: pointer;
-  }
-  
-  .register-account {
+}
+
+.register-account {
 	text-align: left;
 	display: block;
-  }
-  
-  header {
+}
+
+header {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
-	padding: 5px 20px 0 5px;
-  }
-  
-  header .logo {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px 15px;
+}
+
+header .logo {
 	margin: 0;
-  }
-  
-  header .search {
-	max-width: 400px;
+	order: 1;
+}
+
+header .search {
+
 	width: 100%;
 	display: flex;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	padding: 10px 15px;
-  }
-  
-  header .search input {
+	order: 3;
+}
+
+header .search input {
 	width: 100%;
 	border: 0;
 	font-size: 16px;
 	font-weight: 500;
-  }
-  
-  header .search input:focus {
+}
+
+header .search input:focus {
 	outline: none;
-  }
-  
-  header .account img {
+}
+
+header .account img {
 	height: 30px;
-  }
-  
-  header .account {
+}
+
+header .account {
 	display: flex;
 	align-items: center;
-  }
-  
-  header .account .text {
+	order: 2;
+}
+
+header .account .text {
 	margin-right: 10px;
 	font-weight: 500;
-  }
-  
-  header .search button {
+}
+
+header .search button {
 	background: transparent;
 	appearance: none;
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	border: 0;
-  }
-  
-  header .search button img {
+}
+
+header .search button img {
 	height: 22px;
-  }
-  
-  .menu {
+}
+
+.menu {
 	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 	padding: 20px 0;
 	display: flex;
 	justify-content: center;
-  }
-  
-  .menu .item {
-	width: 6%;
+}
+
+.menu .item {
 	margin: 0 2%;
 	text-decoration: none;
 	font-size: 13px;
-  }
-  
-  .menu .item .icon {
-	width: 80%;
+	max-width: 70px;
+	white-space: nowrap;
+}
+
+.menu .item .icon {
+	width: 70%;
 	margin: 0 auto;
 	transition: 0.3s;
-  }
-  
-  .menu .item .icon:hover {
+}
+
+.menu .item .icon:hover {
 	opacity: 0.8;
-  }
-  
-  .grid {
+}
+
+.grid {
 	max-width: 250px;
 	margin: 0 auto;
 	display: flex;
 	flex-wrap: wrap;
 	padding: 50px 0 0 0;
 	justify-content: space-between;
-  }
-  
-  .grid .item {
+}
+
+.grid .item {
 	width: 47%;
 	margin-bottom: 15px;
 	border: 1px solid #ccc;
@@ -189,23 +196,125 @@ html {
 	text-decoration: none;
 	font-size: 13px;
 	border-radius: 15px;
-  }
-  
-  .grid .item:hover {
+}
+
+.grid .item:hover {
 	opacity: 0.8;
-  }
-  
-  footer {
+}
+
+footer {
 	color: #fff;
 	margin-top: 50px;
 	background-color: #333;
 	padding: 25px 0 20px 0;
-  }
-  
-  footer .logo {
+}
+
+footer .logo {
 	margin: 0 0 20px 0;
-  }
-  
-  footer .copyright {
+}
+
+footer .copyright {
 	font-size: 13px;
-  }
+}
+
+.table-wrapper {
+	width: 100%;
+	overflow-x: auto;
+	margin: 0 auto;
+	display: inline-block;
+}
+
+.flights {
+	border-collapse: collapse;
+}
+
+.flights td,
+.flights th {
+	border: 1px solid #ccc;
+	padding: 10px;
+	white-space: nowrap;
+}
+
+.flights th {
+	text-align: left;
+	background-color: #666;
+	color: #fff;
+}
+
+.content {
+	padding: 15px;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.main-title {
+	font-size: 50px;
+	font-weight: bold;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.main-title .subtitle {
+	font-size: 15px;
+	font-weight: 400;
+	padding-top: 5px;
+}
+
+.hamburger {
+	display: flex;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	padding: 20px 0;
+	justify-content: center;
+	font-size: 18px;
+	align-items: center;
+	font-weight: bold;
+}
+
+.hamburger img {
+	height: 25px;
+	margin-right: 10px;
+}
+
+.menu {
+	display: none;
+}
+
+.mobile-menu.active {
+	top: 0;
+	transition: top 0.5s;
+}
+
+.mobile-menu {
+	position: fixed;
+	top: -100vh;
+	background-color: #333;
+	width: 100%;
+	height: 100vh;
+	text-align: center;
+	padding-top: 20vh;
+	transition: top 0.5s;
+	z-index: 99;
+}
+
+.mobile-menu .icon,
+.mobile-menu .icon img {
+	height: 20px;
+	margin-right: 5px;
+	filter: brightness(0) invert(1);
+}
+
+.mobile-menu a {
+	display: flex;
+	justify-content: center;
+	color: #fff;
+	text-decoration: none;
+	padding: 20px;
+}
+
+.mobile-menu .close {
+	color: #fff;
+	position: absolute;
+	top: 30px;
+	right: 30px;
+}
