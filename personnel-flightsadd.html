@@ -60,8 +60,48 @@
         </div>
         <!-- /Menu -->
 
+        <!-- Hamburger -->
+        <div class="hamburger">
+            <img src="images/hamburger.png" alt=""> MENU
+        </div>
+        <!--/Hamburger -->
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <a href="personnel-mainmenu.html" class="item">
+                <div class="icon"><img src="images/icon-menu.png" alt=""></div>
+                <div class="text">Main Menu</div>
+            </a>
+            <a href="personnel-checkin.html" class="item">
+                <div class="icon"><img src="images/icon-checkin.png" alt=""></div>
+                <div class="text">Check In</div>
+            </a>
+            <a href="personnel-flightsmain.html" class="item">
+                <div class="icon"><img src="images/icon-plane.png" alt=""></div>
+                <div class="text">Flights</div>
+            </a>
+            <a href="personnel-configure.html" class="item">
+                <div class="icon"><img src="images/icon-gear.png" alt=""></div>
+                <div class="text">Configure</div>
+            </a>
+            <a href="personnel-baggage.html" class="item">
+                <div class="icon"><img src="images/icon-luggage.png" alt=""></div>
+                <div class="text">Baggage</div>
+            </a>
+            <a href="personnel-analytics.html" class="item">
+                <div class="icon"><img src="images/icon-data-analytics.png" alt=""></div>
+                <div class="text">Analytics</div>
+            </a>
+            <div class="close"><img src="images/close.png" alt=""></div>
+        </div>
+        <!-- /Mobile Menu -->
+
         <!-- Content-Area -->
         <div class="content">
+
+            <div class="main-title">
+                Add New Flight
+            </div>
 
             <!-- display form to add new flight -->
             <form>
@@ -74,9 +114,19 @@
                 <br><br>
 
                 <label for="fDepartLoc">Depart Location: </label>
-                <select id="fDepartLoc">
-                    <option value=""></option>
-                </select>
+                <select id="fDepartLoc"></select>
+                <br><br>
+
+                <label for="fArriveLoc">Arrive Location: </label>
+                <select id="fArriveLoc"></select>
+                <br><br>
+
+                <label for="fDepartTime">Depart Time: </label>
+                <input type="text" id="fDepartTime" value="00:00" maxlength="5">
+                <br><br>
+
+                <label for="fArriveTime">Arrive Time: </label>
+                <input type="text" id="fArriveTime" value="00:00" maxlength="5">
                 <br><br>
 
                 <input type="submit">
@@ -96,6 +146,109 @@
         <!-- /Footer -->
 
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
+
+    <script id="firebaseScript">
+        const firebaseConfig = {
+            apiKey: "AIzaSyAsIlkYQFu9rExzhdpG5HHfnhEI66Unj-4",
+            authDomain: "myx-baggage.firebaseapp.com",
+            projectId: "myx-baggage",
+            storageBucket: "myx-baggage.appspot.com",
+            messagingSenderId: "342593572959",
+            appId: "1:342593572959:web:4eac93d796cfa787000bea",
+            measurementId: "G-5SKV7NKZY1"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        let db = firebase.firestore();
+
+        //function to retrieve data
+        function getAllData() {
+            db.collection("airports").get().then((querySnapshot) => {
+                var airports = [];
+                var allID = [];
+                querySnapshot.forEach(doc => {
+                    airports.push(doc.data());
+                    allID.push(doc.id);
+                });
+                addAllOption(allID, airports);
+            });
+        }
+
+        //function to update data in real time whenever there are changes in database record
+        function getAllDataRealtime() {
+            db.collection("airports").onSnapshot((querySnapshot) => {
+                var airports = [];
+                var allID = [];
+                querySnapshot.forEach(doc => {
+                    airports.push(doc.data());
+                    allID.push(doc.id);
+                });
+                addAllOption(allID, airports);
+            });
+        }
+
+        var departNum = 0;
+        var arriveNum = 0;
+        var departSelect = document.getElementById('fDepartLoc');
+        var arriveSelect = document.getElementById('fArriveLoc');
+
+        function addDepartOption(airportID, airportName, airportState) {
+            var option = document.createElement('option');
+            option.value = "dep".concat(airportID);
+            option.text = airportID + " - " + airportName + " - " + airportState;
+            departSelect.appendChild(option);
+            departNum++;
+        }
+
+        function addArriveOption(airportID, airportName, airportState) {
+            var option = document.createElement('option');
+            option.value = "arr".concat(airportID);
+            option.text = airportID + " - " + airportName + " - " + airportState;
+            arriveSelect.appendChild(option);
+            arriveNum++;
+        }
+
+        function addAllOption(AirportIDList, AirportList) {
+            departNum = 0;
+            arriveNum = 0;
+            AirportList.forEach(element => {
+                addDepartOption(AirportIDList[departNum], element.airportName, element.airportState);
+                addArriveOption(AirportIDList[arriveNum], element.airportName, element.airportState);
+            });
+        }
+
+        window.onload = getAllDataRealtime;
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet" />
+
+    <script id="timepicker">
+        var timepicker = new TimePicker(['fDepartTime', 'fArriveTime'], {
+            lang: 'en'
+        });
+
+        timepicker.on('change', function (evt) {
+            var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+            evt.element.value = value;
+        });
+
+        // var arriveTimepicker = new TimePicker('fArriveTime', {
+        //     lang: 'en'
+        // });
+
+        // arriveTimepicker.on('change', function (evt) {
+        //     var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+        //     evt.element.value = value;
+        // });
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

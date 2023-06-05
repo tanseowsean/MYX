@@ -163,12 +163,14 @@
         function getAllData() {
             db.collection("flights").get().then((querySnapshot) => {
                 var flights = [];
+                var allID = [];
                 querySnapshot.forEach(doc => {
                     flights.push(doc.data());
+                    allID.push(doc.id);
                 });
                 // console.log(querySnapshot);
                 // console.log(flights);
-                addAllItemToTable(flights);
+                addAllItemToTable(allID, flights);
             });
         }
 
