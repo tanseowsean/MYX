@@ -224,21 +224,30 @@ footer .copyright {
 	display: inline-block;
 }
 
-.flights {
+.pTable, .pSelectTable {
 	border-collapse: collapse;
 }
 
-.flights td,
-.flights th {
+.pTable td,
+.pTable th,
+.pSelectTable td,
+.pSelectTable th {
 	border: 1px solid #ccc;
 	padding: 10px;
 	white-space: nowrap;
 }
 
-.flights th {
+.pTable th, .pSelectTable th {
 	text-align: left;
 	background-color: #666;
 	color: #fff;
+	cursor: 
+}
+
+.pSelectTable tr:not(:first-child):hover {
+	cursor: pointer;
+	transition: all .25s ease-in-out;
+	background-color: #ccc;
 }
 
 .content {

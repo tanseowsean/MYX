@@ -129,6 +129,17 @@
                 <input type="text" id="fArriveTime" value="00:00" maxlength="5">
                 <br><br>
 
+                <label for="fStatus">Flight Status: </label>
+                <select id="fStatus">
+                    <option value=""></option>
+                    <option value="Gate Open">Gate Open</option>
+                    <option value="Boarding">Boarding</option>
+                    <option value="Gate Closing">Gate Closing</option>
+                    <option value="Departed">Departed</option>
+                    <option value="Landed">Landed</option>
+                </select>
+                <br><br>
+
                 <input type="submit">
             </form>
         </div>
@@ -164,19 +175,6 @@
 
         firebase.initializeApp(firebaseConfig);
         let db = firebase.firestore();
-
-        //function to retrieve data
-        function getAllData() {
-            db.collection("airports").get().then((querySnapshot) => {
-                var airports = [];
-                var allID = [];
-                querySnapshot.forEach(doc => {
-                    airports.push(doc.data());
-                    allID.push(doc.id);
-                });
-                addAllOption(allID, airports);
-            });
-        }
 
         //function to update data in real time whenever there are changes in database record
         function getAllDataRealtime() {
@@ -236,15 +234,6 @@
             var value = (evt.hour || '00') + ':' + (evt.minute || '00');
             evt.element.value = value;
         });
-
-        // var arriveTimepicker = new TimePicker('fArriveTime', {
-        //     lang: 'en'
-        // });
-
-        // arriveTimepicker.on('change', function (evt) {
-        //     var value = (evt.hour || '00') + ':' + (evt.minute || '00');
-        //     evt.element.value = value;
-        // });
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

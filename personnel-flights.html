@@ -109,7 +109,7 @@
 
             <!-- display flights -->
             <div class="table-wrapper">
-                <table class="flights" cellspacing="0" cellpadding="0" width="100%">
+                <table class="pTable" cellspacing="0" cellpadding="0" width="100%">
                     <thead>
                         <th>No.</th>
                         <th>Flight ID</th>
@@ -119,6 +119,7 @@
                         <th>Arrival Location</th>
                         <th>Departure Time</th>
                         <th>Arrival Time</th>
+                        <th>Status</th>
                     </thead>
                     <tbody id="tbodyFlights"></tbody>
                 </table>
@@ -193,7 +194,7 @@
         var flightNo = 0;
         var tbody = document.getElementById('tbodyFlights');
 
-        function addItemToTable(flightID, aircraft, flightDate, departLocation, arriveLocation, departTime, arriveTime) {
+        function addItemToTable(flightID, aircraft, flightDate, departLocation, arriveLocation, departTime, arriveTime, status) {
             var trow = document.createElement('tr');
             var td1 = document.createElement('td');
             var td2 = document.createElement('td');
@@ -203,6 +204,7 @@
             var td6 = document.createElement('td');
             var td7 = document.createElement('td');
             var td8 = document.createElement('td');
+            var td9 = document.createElement('td');
 
             td1.innerHTML = ++flightNo;
             td2.innerHTML = flightID;
@@ -212,6 +214,7 @@
             td6.innerHTML = arriveLocation;
             td7.innerHTML = departTime;
             td8.innerHTML = arriveTime;
+            td9.innerHTML = status;
 
             trow.appendChild(td1);
             trow.appendChild(td2);
@@ -221,6 +224,7 @@
             trow.appendChild(td6);
             trow.appendChild(td7);
             trow.appendChild(td8);
+            trow.appendChild(td9);
 
             tbody.appendChild(trow);
         }
@@ -229,15 +233,11 @@
             flightNo = 0;
             tbody.innerHTML = "";
             FlightsDocList.forEach(element => {
-                addItemToTable(FlightsIDList[flightNo], element.aircraft, element.flightDate, element.departLocation, element.arriveLocation, element.departTime, element.arriveTime);
+                addItemToTable(FlightsIDList[flightNo], element.aircraft, element.flightDate, element.departLocation, element.arriveLocation, element.departTime, element.arriveTime, element.flightStatus);
             });
         }
 
         window.onload = getAllDataRealtime;
-
-        // window.onload = getAllData(element => {
-        //     addItemToTable(element.aircraft, element.flightDate, element.departLocation, element.arriveLocation, element.departTime, element.arriveTime);
-        // });
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="js/main.js"></script>
