@@ -99,27 +99,17 @@
         <!-- Content-Area -->
         <div class="content">
 
-            <!-- display list of airports -->
+            <!-- display configuration settings -->
+            <div id="airportNameText" class="main-title"></div>
+
             <div class="main-title">
-                Configurable Airports
-
-                <div class="subtitle">
-                    Swipe the table to view more details and click to configure
-                </div>
+                Departures
             </div>
 
-            <div class="table-wrapper">
-                <table id="tableAirport" class="pSelectTable" cellspacing="0" cellpadding="0" width="100%">
-                    <thead>
-                        <th>No.</th>
-                        <th>Airport ID</th>
-                        <th>Airport Name</th>
-                        <th>Airport State</th>
-                    </thead>
-                    <tbody id="tbodyAirports"></tbody>
-                </table>
+            <div class="main-title">
+                Arrivals
             </div>
-            <!-- /display list of airports -->
+            <!-- /display configuration settings -->
         </div>
         <!-- /Content-Area -->
 
@@ -136,7 +126,7 @@
 
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
 
@@ -199,40 +189,11 @@
             });
         }
 
+        var table = document.getElementById('tableAirports'), rIndex;
+
+        // for (var i = 1, )
+
         window.onload = getAllDataRealtime;
-    </script>
-
-    <!-- <script>
-        var table = document.getElementById('tableAirports');
-        var rows = table.getElementsByTagName('tr');
-
-        for (var i = 0; i < rows.length; i++) {
-            var currentRow = table.rows[i];
-            var createClickHandler = function (row) {
-                return function () {
-                    var cell = row.getElementsByTagName("td")[1];
-                    var id = cell.innerHTML;
-                    alert("id: " + id);
-                };
-            };
-            currentRow.onclick = createClickHandler(currentRow);
-
-            // table.rows[i].onClick = function () {
-            //     rIndex = this.rowIndex;
-            //     console.log(this.cells[rIndex].innerHTML);
-            //     // //get the airport id
-            //     // db.collection("airports").get().then((querySnapshot) => {
-            //     //     var allID = [];
-            //     //     querySnapshot.forEach(doc => {
-            //     //         allID.push(doc.id);
-            //     //     });
-            //     // });
-
-            //     // //go to the specific airport's configuration page
-            //     // var url = "personnel-configureairport.html?airport=" + allID[i];
-            //     // window.location(url);
-            // }
-        }
     </script> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
