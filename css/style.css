@@ -386,6 +386,19 @@ footer .copyright {
 	margin-top: 8px;
 }
 
+.configBtn {
+	background-color: DodgerBlue;
+	border: none;
+	color: white;
+	padding: 12px 16px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.configBtn:hover {
+	background-color: RoyalBlue;
+}
+
 .desktop-only {
 	display: none;
 }
