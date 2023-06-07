@@ -197,17 +197,24 @@
     </script> -->
 
     <script>
-        window.onload = function () {
-            var url = document.location.href,
-                params = url.split('?')[1].split('&'),
-                data = {}, tmp;
-            for (var i = 0, l = params.length; i < l; i++) {
-                tmp = params[i].split('=');
-                data[tmp[0]] = tmp[1];
-            }
-            document.getElementById('airportNameText').innerHTML = data.airportID;
+        // window.onload = function () {
+        //     var url = document.location.href,
+        //         params = url.split('?')[1].split('&'),
+        //         data = {}, tmp;
+        //     for (var i = 0, l = params.length; i < l; i++) {
+        //         tmp = params[i].split('=');
+        //         data[tmp[0]] = tmp[1];
+        //     }
+        //     document.getElementById('airportNameText').innerHTML = data.airportID;
 
-        }
+        // }
+
+        window.addEventListener('load', () => {
+            const params = (new URL(document.location)).searchParams;
+            const aId = params.get('airportID');
+
+            document.getElementById('airportNameText').innerHTML = aId;
+        })
     </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
