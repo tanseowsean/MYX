@@ -104,7 +104,7 @@
                 Configurable Airports
 
                 <div class="subtitle">
-                    Swipe the table to view more details and click to configure
+                    Select airport to configure
                 </div>
             </div>
 
@@ -198,6 +198,25 @@
                 addItemToTable(AirportsIDList[airportNo], element.airportName, element.airportState);
             });
         }
+
+        // function addRowHandlers() {
+        //     var table = document.getElementById('tableAirports');
+        //     var rows = table.getElementsByTagName('tr');
+
+        //     for (i = 0; i < rows.length; i++) {
+        //         var currentRow = table.rows[i];
+        //         var createClickHandler =
+        //             function (row) {
+        //                 return function () {
+        //                     var cell = row.getElementsByTagName("td")[1];
+        //                     var id = cell.innerHTML;
+        //                     alert("id:" + id);
+        //                 };
+        //             };
+
+        //         currentRow.onclick = createClickHandler(currentRow);
+        //     }
+        // }
 
         window.onload = getAllDataRealtime;
     </script>
