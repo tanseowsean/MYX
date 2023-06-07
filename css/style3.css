@@ -241,11 +241,9 @@ footer .copyright {
 	text-align: left;
 	background-color: #666;
 	color: #fff;
-	cursor: context-menu;
 }
 
 .pSelectTable tr:hover {
-	cursor: pointer;
 	transition: all .25s ease-in-out;
 	background-color: #ccc;
 }

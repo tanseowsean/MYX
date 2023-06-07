@@ -108,13 +108,14 @@
                 </div>
             </div>
 
-            <div class="table-wrapper">
+            <div id="tableContent" class="table-wrapper">
                 <table id="tableAirport" class="pSelectTable" cellspacing="0" cellpadding="0" width="100%">
                     <thead>
                         <th>No.</th>
                         <th>Airport ID</th>
                         <th>Airport Name</th>
                         <th>Airport State</th>
+                        <th></th>
                     </thead>
                     <tbody id="tbodyAirports"></tbody>
                 </table>
@@ -163,7 +164,21 @@
                     airports.push(doc.data());
                     allID.push(doc.id);
                 });
-                addAllItemToTable(allID, airports);
+
+                var tContent = "";
+
+                if (allID.length < 1)
+                {
+                    tContent = '<p>No airport records found.</p>';
+                    $(tContent).appendTo('#tableContent');
+                    $('#tableAirport').hide();
+                }
+                else
+                {
+                    $('p').hide();
+                    $('#tableAirport').show();
+                    addAllItemToTable(allID, airports);
+                }
             });
         }
 
@@ -177,16 +192,32 @@
             var td2 = document.createElement('td');
             var td3 = document.createElement('td');
             var td4 = document.createElement('td');
+            var td5 = document.createElement('td');
 
             td1.innerHTML = ++airportNo;
             td2.innerHTML = airportID;
             td3.innerHTML = airportName;
             td4.innerHTML = airportState;
 
+            var form = document.createElement('form');
+            form.setAttribute('method', 'get');
+            form.setAttribute('action', 'personnel-configureairport.html');
+            var inputField = document.createElement('input');
+            inputField.value = airportID;
+            inputField.style.visibility = 'hidden';
+            var btn = document.createElement('input');
+            btn.type = "submit";
+            btn.value = "Configure";
+            btn.className = "pSelectTableBtn";
+            form.appendChild(inputField);
+            form.appendChild(btn);
+            td5.appendChild(form);
+
             trow.appendChild(td1);
             trow.appendChild(td2);
             trow.appendChild(td3);
             trow.appendChild(td4);
+            trow.appendChild(td5);
 
             tbody.appendChild(trow);
         }
