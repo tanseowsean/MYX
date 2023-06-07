@@ -43,6 +43,19 @@
 	.main-title .subtitle {
 		display: none;
 	}
+
+	.add-flight .item label {
+		width: 30%;
+	}
+
+	.add-flight .item .input {
+		width: 70%;
+		padding-left: 15px;
+	}
+
+	.desktop-only {
+		display: block;
+	}
 }
 
 /* Extra large devices (large desktops, 1200px and up) */

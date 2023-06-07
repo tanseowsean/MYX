@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="icon" href="images/favicon.png" type="image/png" sizes="16x16">
     <title>MYX Baggage Tracking System</title>
-    <link rel="stylesheet" href="css/style3.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
