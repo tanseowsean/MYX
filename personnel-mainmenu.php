@@ -24,10 +24,6 @@
         <!-- Header -->
         <header>
             <div class="logo"><img src="images/logoXS.png" alt=""></div>
-            <div class="search">
-                <input type="text">
-                <button><img src="images/icon-search.png" alt=""></button>
-            </div>
             <div class="account">
                 <div class="text">Hello, Xuan</div>
                 <img src="images/user.png" alt="">

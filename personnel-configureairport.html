@@ -22,10 +22,6 @@
         <!-- Header -->
         <header>
             <div class="logo"><img src="images/logoXS.png" alt=""></div>
-            <div class="search">
-                <input type="text">
-                <button><img src="images/icon-search.png" alt=""></button>
-            </div>
             <div class="account">
                 <div class="text">Hello, Xuan</div>
                 <img src="images/user.png" alt="">
@@ -101,17 +97,30 @@
         <!-- Content-Area -->
         <div class="content">
 
-            <!-- display configuration settings -->
+            <!-- display configurations settings -->
             <div id="airportNameText" class="main-title"></div>
+            <div class="table-wrapper">
+                <table class="pTable" cellspacing="0" cellpadding="0" width="100%">
+                    <thead>
+                        <th>No.</th>
+                        <th>Configuration ID</th>
+                        <th>Configuration Type</th>
+                        <th>Configuration Points</th>
+                        <th>Delete</th>
+                    </thead>
+                    <tbody id="tbodyFlights"></tbody>
+                </table>
+            </div>
+            <!-- display configurations settings -->
 
-            <div class="main-title">
+            <!-- <div class="main-title">
                 Departures
             </div>
             <button class="configBtn"><i class="fa fa-plus"></i></button>
 
             <div class="main-title">
                 Arrivals
-            </div>
+            </div> -->
             <!-- /display configuration settings -->
         </div>
         <!-- /Content-Area -->
