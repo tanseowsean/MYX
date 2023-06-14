@@ -139,6 +139,7 @@ header .account {
 header .account .text {
 	margin-right: 10px;
 	font-weight: 500;
+	text-align: right;
 }
 
 header .search button {
@@ -386,7 +387,7 @@ footer .copyright {
 	margin-top: 8px;
 }
 
-.configBtn {
+.roundBtn {
 	background-color: DodgerBlue;
 	border: none;
 	color: white;
@@ -396,10 +397,15 @@ footer .copyright {
 	border-radius: 50%;
 }
 
-.configBtn:hover {
+.roundBtn:hover {
 	background-color: RoyalBlue;
 }
 
 .desktop-only {
 	display: none;
+}
+
+.logout {
+	display: block;
+	font-size: 13px;
 }

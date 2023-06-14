@@ -25,7 +25,10 @@
         <header>
             <div class="logo"><img src="images/logoXS.png" alt=""></div>
             <div class="account">
-                <div class="text">Hello, Xuan</div>
+                <div class="text">
+                    Hello, Xuan
+                    <a href="#" class="logout">Log Out</a>
+                </div>
                 <img src="images/user.png" alt="">
             </div>
         </header>
