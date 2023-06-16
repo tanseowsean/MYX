@@ -226,7 +226,7 @@
 
         window.addEventListener('load', () => {
             const params = (new URL(document.location)).searchParams;
-            const aId = params.get('airportID');
+            var aId = params.get('airportID');
 
             document.getElementById('airportNameText').innerHTML = aId;
         })

@@ -17,6 +17,18 @@ class Firestore
         $this->name = $collection;
     }
 
+    // public function queryDocumentForData(string $docuName)
+    // {
+    //     try
+    //     {
+    //         if ($this->db->collection($this->name))
+    //     }
+    //     catch (Exception $exception)
+    //     {
+    //         return $exception->getMessage();
+    //     }
+    // }
+
     public function getDocument(string $name)
     {
         try {
@@ -105,6 +117,20 @@ class Firestore
             printf('<td>%s</td>', $flight['departTime']);
             printf('<td>%s</td>', $flight['departLocation']);
             print('</tr>');
+        }
+    }
+
+    public function searchForAirportName(string $id)
+    {
+        $ref = $this->db->collection($this->name);
+        $snapshot = $ref->documents();
+
+        foreach($snapshot as $airport)
+        {
+            if ($airport->id() == $id)
+            {
+                return $airport['airportName'];
+            }
         }
     }
 }

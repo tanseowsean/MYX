@@ -202,9 +202,10 @@
             form.setAttribute('method', 'get');
             form.setAttribute('action', 'personnel-configureairport.html');
             var inputField = document.createElement('input');
+            inputField.type = "hidden";
             inputField.name = "airportID";
             inputField.value = airportID;
-            inputField.style.visibility = "hidden";
+            // inputField.style.visibility = "hidden";
             var btn = document.createElement('input');
             btn.type = "submit";
             btn.value = "Configure";

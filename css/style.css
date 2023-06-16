@@ -181,7 +181,7 @@ header .search button img {
 }
 
 .grid {
-	max-width: 250px;
+	max-width: 400px;
 	margin: 0 auto;
 	display: flex;
 	flex-wrap: wrap;
@@ -190,13 +190,22 @@ header .search button img {
 }
 
 .grid .item {
-	width: 47%;
-	margin-bottom: 15px;
+	width: 31%;
+	margin-bottom: 8px;
 	border: 1px solid #ccc;
 	padding: 30px;
 	text-decoration: none;
 	font-size: 13px;
 	border-radius: 15px;
+}
+
+.grid.two {
+	justify-content: center;
+	padding: 0 0 0 0;
+}
+
+.grid.two .item {
+	margin: 8px;
 }
 
 .grid .item:hover {
