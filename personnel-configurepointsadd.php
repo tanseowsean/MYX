@@ -5,6 +5,8 @@ if (!isset($_SESSION['personnelUser'])) {
     exit();
 } else {
     include 'personnel-header.php';
+
+    $aId = ($_GET['airportID']);
 }
 ?>
 
@@ -12,28 +14,29 @@ if (!isset($_SESSION['personnelUser'])) {
 <div class="content">
 
     <div class="main-title">
-        Enter Traveller Details
+        Enter Configuration Point Details
     </div>
 
-    <form id="checkinBookingNo" class="myx-form" action="validate-checkin.php" method="post">
+    <form id="configurePointsAdd" class="myx-form" action="add-configurepoints.php" method="get">
+        <input type="hidden" id="airportID" name="airportID" value="<?php echo $aId; ?>">
         <div class="item">
-            <label for="bookingNo">Booking Number: </label>
+            <label for="pointID">Configuration Point ID: </label>
             <div class="input">
-                <input type="text" id="bookingNo" name="bookingNo">
+                <input type="text" id="pointID" name="pointID">
             </div>
         </div>
 
         <div class="item">
-            <label for="passportNo">Passport Number: </label>
+            <label for="pointDesc">Configuration Point Description: </label>
             <div class="input">
-                <input type="text" id="passportNo" name="passportNo">
+                <input type="text" id="pointDesc" name="pointDesc">
             </div>
         </div>
 
         <div class="item">
             <label for="" class="desktop-only">&nbsp;</label>
             <div class="input">
-                <input type="submit" class="submit-btn" name="checkin_btn">
+                <input type="submit" class="submit-btn" name="addconfigpoint_btn">
             </div>
         </div>
     </form>

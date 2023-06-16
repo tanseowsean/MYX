@@ -16,7 +16,7 @@ if (!isset($_SESSION['personnelUser'])) {
     </div>
 
     <!-- display form to add new flight -->
-    <form class="add-flight">
+    <form class="myx-form">
 
         <div class="item">
             <label for="fDate">Flight Date: </label>

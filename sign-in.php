@@ -47,8 +47,10 @@ if(isset($_POST['signin_btn']))
             else
             {
                 // redirect back to index
-                header('Location: index.php');
-                echo '<script>alert("Incorrect password!")</script>';
+                echo '<script>
+                alert("Incorrect password!");
+                window.location.href = "index.php";
+                </script>';
                 exit();
             }
         }
@@ -56,8 +58,11 @@ if(isset($_POST['signin_btn']))
         else
         {
             // redirect back to index
-            header('Location: index.php');
-            echo '<script>alert("Account does not exist!")</script>';
+            // header('Location: index.php');
+            echo '<script>
+            alert("Account does not exist!");
+            window.location.href = "index.php";
+            </script>';
             exit();
         }
     }

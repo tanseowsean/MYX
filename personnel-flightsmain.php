@@ -12,18 +12,26 @@ if (!isset($_SESSION['personnelUser'])) {
 <div class="content">
 
     <!-- display flights menu options -->
-    <div class="grid">
+    <div class="grid two">
         <a href="personnel-flights.php" class="item">
             <div class="icon"><img src="images/icon-list.png" alt=""></div>
             <div class="text">Manage Flights</div>
+        </a>
+        <a href="personnel-flightsadd.php" class="item">
+            <div class="icon"><img src="images/icon-add.png" alt=""></div>
+            <div class="text">Add New Flight</div>
+        </a>
+    </div>
+
+    <div class="grid two">
+        <a href="personnel-bookings.php" class="item">
+            <div class="icon"><img src="images/icon-list.png" alt=""></div>
+            <div class="text">Manage Bookings</div>
         </a>
         <a href="personnel-bookingsadd.php" class="item">
             <div class="icon"><img src="images/icon-add.png" alt=""></div>
             <div class="text">Add Bookings</div>
         </a>
-        <a href="personnel-flightsadd.php" class="item">
-            <div class="icon"><img src="images/icon-add.png" alt=""></div>
-            <div class="text">Add New Flight</div>
         </a>
     </div>
 </div>

@@ -347,21 +347,21 @@ footer .copyright {
 	right: 30px;
 }
 
-.add-flight {
+.myx-form {
 	max-width: 600px;
 	margin: 0 auto;
 	font-size: 16px;
 }
 
-.add-flight .item {
+.myx-form .item {
 	display: flex;
 	text-align: left;
 	margin-bottom: 20px;
 	align-items: center;
 }
 
-.add-flight .item .input input,
-.add-flight .item .input select {
+.myx-form .item .input input,
+.myx-form .item .input select {
 	padding: 10px;
 	width: 100%;
 	border-radius: 5px;
@@ -371,7 +371,7 @@ footer .copyright {
 	color: #666;
 }
 
-.add-flight .item .input .submit-btn {
+.myx-form .item .input .submit-btn {
 	background-color: #333;
 	color: #fff;
 	appearance: none;
@@ -382,17 +382,17 @@ footer .copyright {
 	padding: 10px 30px;
 }
 
-.add-flight .item {
+.myx-form .item {
 	flex-wrap: wrap;
 }
 
-.add-flight .item label,
-.add-flight .item .input {
+.myx-form .item label,
+.myx-form .item .input {
 	width: 100%;
 	padding-left: 0;
 }
 
-.add-flight .item .input {
+.myx-form .item .input {
 	margin-top: 8px;
 }
 

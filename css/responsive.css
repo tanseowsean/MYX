@@ -44,11 +44,11 @@
 		display: none;
 	}
 
-	.add-flight .item label {
+	.myx-form .item label {
 		width: 30%;
 	}
 
-	.add-flight .item .input {
+	.myx-form .item .input {
 		width: 70%;
 		padding-left: 15px;
 	}

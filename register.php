@@ -21,8 +21,10 @@ if (isset($_POST['register_btn'])) {
         {
             // user already exist, fail to register
             // redirect back to index page
-            header('Location: index.php');
-            echo '<script>alert("Fail to sign up! Account already exists.")</script>';
+            echo '<script>
+            alert("Fail to sign up! Account already exists.");
+            window.location.href = "index.php";
+            </script>';
             exit();
         }
         // else (user does not exist)
@@ -38,8 +40,10 @@ if (isset($_POST['register_btn'])) {
             $db->collection('accounts')->document($accEmail)->set($data);
 
             // redirect back to index page
-            header('Location: index.php');
-            echo '<script>alert("Account successfully created! Please sign in.")</script>';
+            echo '<script>
+            alert("Account successfully created! Please sign in.");
+            window.location.href = "index.php";
+            </script>';
             exit();
         }
     }
