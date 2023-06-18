@@ -4,11 +4,12 @@ use Google\Cloud\Firestore\FirestoreClient;
 
 session_start();
 
-if (isset($_GET['addconfigpoint_btn']))
+if (isset($_GET['addtrackingpoint_btn']))
 {
     // retrieve input
     $aId = ($_GET['airportID']);
     $pId = ($_GET['pointID']);
+    $tpId = $aId.$pId;
     $pDesc = ($_GET['pointDesc']);
 
     $db = new FirestoreClient([
@@ -17,30 +18,34 @@ if (isset($_GET['addconfigpoint_btn']))
 
     try
     {
-        // check if config point exists
-        if ($db->collection('configurationPoints')->document($pId)->snapshot()->exists())
+        // check if tracking point exists
+        if ($db->collection('trackingPoints')->document($tpId)->snapshot()->exists())
         {
-            // config point already exists, fail to create new one
+            // tracking point already exists, fail to create new one
             echo '<script>
-            alert("Fail to add new configuration point! Configuration point already exists.");
+            alert("Fail to add new tracking point! Tracking point already exists.");
             window.location.href = "personnel-configureairport.php?airportID='.$aId.'";
             </script>';
             exit();
         }
-        // else (config point does not exist)
+        // else (tracking point does not exist)
         else
         {
-            // create config point
+            $useArr = [];
+
+            // create tracking point
             $data = [
                 'airportID' => $aId,
-                'configDesc' => $pDesc
+                'trackingDesc' => $pDesc,
+                'usage' => 0,
+                'use' => $useArr
             ];
 
-            $db->collection('configurationPoints')->document($pId)->set($data);
+            $db->collection('trackingPoints')->document($tpId)->set($data);
 
             echo '<script>
-            alert("New configuration point successfully created!");
-            window.location.href = "personnel-configureairport.php?airportID='.$aId.'";
+            alert("New tracking point successfully created!");
+            window.location.href = "personnel-trackingpoints.php?airportID='.$aId.'";
             </script>';
             exit();
         }

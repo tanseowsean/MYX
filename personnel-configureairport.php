@@ -46,11 +46,11 @@ if (!isset($_SESSION['personnelUser'])) {
     </div>
 
     <div class="grid two">
-        <a href="personnel-configurepoints.php?airportID=<?php echo $aId; ?>" class="item">
+        <a href="personnel-trackingpoints.php?airportID=<?php echo $aId; ?>" class="item">
             <div class="icon"><img src="images/icon-list.png" alt=""></div>
             <div class="text">Manage Configuration Points</div>
         </a>
-        <a href="personnel-configurepointsadd.php?airportID=<?php echo $aId; ?>" class="item">
+        <a href="personnel-trackingpointsadd.php?airportID=<?php echo $aId; ?>" class="item">
             <div class="icon"><img src="images/icon-add.png" alt=""></div>
             <div class="text">Add Configuration Point</div>
         </a>

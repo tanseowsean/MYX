@@ -9,19 +9,20 @@ if (!isset($_SESSION['personnelUser'])) {
 } else {
     include 'personnel-header.php';
 
-    $pId = ($_GET['pointID']);
+    $tpId = ($_GET['pointID']);
 
     $db = new FirestoreClient([
         'projectId' => 'myx-baggage' //Get firestore project id
     ]);
 
     try {
-        // search for config point details
-        if ($db->collection('airports')->document($pId)->snapshot()->exists()) {
-            $aArr = $db->collection('airports')->document($aId)->snapshot()->data();
+        // search for tracking point details
+        if ($db->collection('trackingPoints')->document($tpId)->snapshot()->exists()) {
+            $pointArr = $db->collection('trackingPoints')->document($tpId)->snapshot()->data();
 
-            // retrieve airport name
-            $aName = $aArr['airportName'];
+            // retrieve tracking point details
+            $aId = $pointArr['airportID'];
+            $pDesc = $pointArr['trackingDesc'];
         }
     } catch (Exception $exception) {
         return $exception->getMessage();
@@ -33,29 +34,29 @@ if (!isset($_SESSION['personnelUser'])) {
 <div class="content">
 
     <div class="main-title">
-        Update Configuration Point Details
+        Update Tracking Point Details
     </div>
 
-    <form id="configurePointsUpdate" class="myx-form" action="add-configurepoints.php" method="get">
+    <form id="configurePointsUpdate" class="myx-form" action="update-trackingpoints.php" method="get">
         <input type="hidden" id="airportID" name="airportID" value="<?php echo $aId; ?>">
         <div class="item">
-            <label for="pointID">Configuration Point ID: </label>
+            <label for="pointID">Tracking Point ID: </label>
             <div class="input">
-                <input type="text" id="pointID" name="pointID">
+                <input type="text" id="pointID" name="pointID" value="<?php echo $tpId; ?>" readonly>
             </div>
         </div>
 
         <div class="item">
-            <label for="pointDesc">Configuration Point Description: </label>
+            <label for="pointDesc">Tracking Point Description: </label>
             <div class="input">
-                <input type="text" id="pointDesc" name="pointDesc">
+                <input type="text" id="pointDesc" name="pointDesc" value="<?php echo $pDesc; ?>">
             </div>
         </div>
 
         <div class="item">
             <label for="" class="desktop-only">&nbsp;</label>
             <div class="input">
-                <input type="submit" class="submit-btn" name="addconfigpoint_btn">
+                <input type="submit" class="submit-btn" name="updatetrackingpoint_btn">
             </div>
         </div>
     </form>

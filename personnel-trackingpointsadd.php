@@ -14,20 +14,20 @@ if (!isset($_SESSION['personnelUser'])) {
 <div class="content">
 
     <div class="main-title">
-        Enter Configuration Point Details
+        Enter Tracking Point Details
     </div>
 
-    <form id="configurePointsAdd" class="myx-form" action="add-configurepoints.php" method="get">
+    <form id="configurePointsAdd" class="myx-form" action="add-trackingpoints.php" method="get">
         <input type="hidden" id="airportID" name="airportID" value="<?php echo $aId; ?>">
         <div class="item">
-            <label for="pointID">Configuration Point ID: </label>
+            <label for="pointID">Tracking Point ID: </label>
             <div class="input">
                 <input type="text" id="pointID" name="pointID">
             </div>
         </div>
 
         <div class="item">
-            <label for="pointDesc">Configuration Point Description: </label>
+            <label for="pointDesc">Tracking Point Description: </label>
             <div class="input">
                 <input type="text" id="pointDesc" name="pointDesc">
             </div>
@@ -36,7 +36,7 @@ if (!isset($_SESSION['personnelUser'])) {
         <div class="item">
             <label for="" class="desktop-only">&nbsp;</label>
             <div class="input">
-                <input type="submit" class="submit-btn" name="addconfigpoint_btn">
+                <input type="submit" class="submit-btn" name="addtrackingpoint_btn">
             </div>
         </div>
     </form>
