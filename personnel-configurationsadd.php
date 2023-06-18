@@ -37,11 +37,10 @@ if (!isset($_SESSION['personnelUser'])) {
 <div class="content">
 
     <div class="main-title">
-        Create New Configuration in <?php echo $aName; ?>
+        Create New Configuration
     </div>
 
     <form id="configurationsAddForm" class="myx-form" action="add-configuration.php" method="post">
-        <input type="hidden" id="airportID" name="airportID" value="<?php echo $aId; ?>">
         <div class="item">
             <label for="configurationName">Configuration Name: </label>
             <div class="input">
@@ -60,46 +59,61 @@ if (!isset($_SESSION['personnelUser'])) {
         </div>
 
         <div class="item">
-            <div class="input">
-                <label for="availablePoints">Select Tracking Points (Select with correct order): </label>
-                <select id="availablePoints" multiple="multiple">
-                </select>
-                
-                <label for="selectedPoints">Selected Tracking Points: </label>
-                <select id="selectedPoints" multiple="multiple">
-                </select>
+            <div class="multi-select">
 
-                <br />
-    
-                <input type="button" id="left" value="<" />
-                <input type="button" id="right" value=">" />
+                <div class="row labels">
+                    <div class="head col-1">
+                        <label for="availablePoints">
+                            Select Tracking Points<br />
+                            (Select with correct order):
+                        </label>
+                    </div>
+                    <div class="head col-2">
+                        &nbsp;
+                    </div>
+                    <div class="head col-3">
+                        <label for="selectedPoints">Selected Tracking Points: </label>
+                    </div>
+                </div>
+
+                <div class="row fields">
+                    <div class="body col-1">
+                        <select id="availablePoints" multiple="multiple" size="20">
+                            <option value="">one</option>
+                            <option value="">two</option>
+                            <option value="">three</option>
+                            <option value="">four</option>
+                            <option value="">five</option>
+                            <option value="">one</option>
+                            <option value="">two</option>
+                            <option value="">three</option>
+                            <option value="">four</option>
+                            <option value="">five</option>
+                            <option value="">one</option>
+                            <option value="">two</option>
+                            <option value="">three</option>
+                            <option value="">four</option>
+                            <option value="">five</option>
+                            <option value="">one</option>
+                            <option value="">two</option>
+                            <option value="">three</option>
+                            <option value="">four</option>
+                            <option value="">five</option>
+                        </select>
+                    </div>
+                    <div class="body col-2">
+                        <input type="button" id="right" value=">" />
+                        <input type="button" id="left" value="<" />
+                    </div>
+                    <div class="body col-3">
+                        <select id="selectedPoints" multiple="multiple" size="20">
+                        </select>
+                    </div>
+                </div>
+
             </div>
         </div>
     </form>
-
-    <!-- <form id="configurePointsAdd" class="myx-form" action="add-configurepoints.php" method="get">
-        <input type="hidden" id="airportID" name="airportID" value="">
-        <div class="item">
-            <label for="pointID">Tracking Point ID: </label>
-            <div class="input">
-                <input type="text" id="pointID" name="pointID">
-            </div>
-        </div>
-
-        <div class="item">
-            <label for="pointDesc">Tracking Point Description: </label>
-            <div class="input">
-                <input type="text" id="pointDesc" name="pointDesc">
-            </div>
-        </div>
-
-        <div class="item">
-            <label for="" class="desktop-only">&nbsp;</label>
-            <div class="input">
-                <input type="submit" class="submit-btn" name="addtrackingpoint_btn">
-            </div>
-        </div>
-    </form> -->
 </div>
 
 <!-- /Content-Area -->
@@ -112,6 +126,22 @@ include 'footer.php';
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="js/main.js"></script>
+
+<!-- <script src="../scripts/jquery-1.11.1.min.js"></script> -->
+<script>
+    function moveItems(origin, dest) {
+        $(origin).find(':selected').appendTo(dest);
+    }
+
+    $('#left').click(function () {
+    moveItems('#selectedPoints', '#availablePoints');
+    });
+ 
+    $('#right').on('click', function () {
+        moveItems('#availablePoints', '#selectedPoints');
+    });
+</script>
+
 </body>
 
 </html>

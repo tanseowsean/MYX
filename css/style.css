@@ -418,3 +418,64 @@ footer .copyright {
 	display: block;
 	font-size: 13px;
 }
+
+.multi-select {
+	width: 100%;
+}
+
+.multi-select .row {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.multi-select select {
+	width: 100%;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 0 5px;
+	cursor: pointer;
+}
+
+.multi-select .col-1,
+.multi-select .col-3 {
+	width: 40%;
+}
+
+.multi-select .col-2 {
+	width: 20%;
+	text-align: center;
+}
+
+.multi-select .body {
+	margin-top: 10px;
+}
+
+.multi-select input[type=button] {
+	width: 60%;
+	margin-bottom: 10px;
+	border: 0;
+	padding: 5px 0;
+	background-color: #ccc;
+	border-radius: 5px;
+	color: #333;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.multi-select input[type=button]:hover {
+	opacity: 0.8;
+}
+
+.multi-select input[type=button]:last-of-type {
+	margin-bottom: 0;
+}
+
+.multi-select .row.labels {
+	align-items: flex-end;
+}
+
+.multi-select .row.fields {
+	align-items: center;
+}
