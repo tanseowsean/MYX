@@ -24,30 +24,51 @@ if (isset($_GET['addtrackingpoint_btn']))
             // tracking point already exists, fail to create new one
             echo '<script>
             alert("Fail to add new tracking point! Tracking point already exists.");
-            window.location.href = "personnel-configureairport.php?airportID='.$aId.'";
+            window.location.href = "personnel-trackingpointsadd.php?airportID='.$aId.'";
             </script>';
             exit();
         }
         // else (tracking point does not exist)
         else
         {
-            $useArr = [];
+            // validate for empty input
+            if ($pId == "")
+            {
+                // empty tracking point ID field
+                echo '<script>
+                alert("Fail to add new tracking point! Tracking point ID field is empty.");
+                window.location.href = "personnel-trackingpointsadd.php?airportID='.$aId.'";
+                </script>';
+                exit();
+            }
+            else if ($pDesc == "")
+            {
+                // empty tracking point description field
+                echo '<script>
+                alert("Fail to add new tracking point! Tracking point description field is empty.");
+                window.location.href = "personnel-trackingpointsadd.php?airportID='.$aId.'";
+                </script>';
+                exit();
+            }
+            else
+            {
+                $useArr = [];
 
-            // create tracking point
-            $data = [
-                'airportID' => $aId,
-                'trackingDesc' => $pDesc,
-                'usage' => 0,
-                'use' => $useArr
-            ];
+                // create tracking point
+                $data = [
+                    'airportID' => $aId,
+                    'trackingDesc' => $pDesc,
+                    'usage' => 0,
+                ];
 
-            $db->collection('trackingPoints')->document($tpId)->set($data);
+                $db->collection('trackingPoints')->document($tpId)->set($data);
 
-            echo '<script>
-            alert("New tracking point successfully created!");
-            window.location.href = "personnel-trackingpoints.php?airportID='.$aId.'";
-            </script>';
-            exit();
+                echo '<script>
+                alert("New tracking point successfully created!");
+                window.location.href = "personnel-trackingpoints.php?airportID='.$aId.'";
+                </script>';
+                exit();
+            }
         }
     }
     catch (Exception $exception)

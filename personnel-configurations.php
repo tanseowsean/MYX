@@ -33,19 +33,21 @@ if (!isset($_SESSION['personnelUser'])) {
 <div class="content">
 
     <div class="main-title">
-        <?php echo $aName; ?> Tracking Points
+        <?php echo $aName; ?> Configurations
     </div>
 
     <div id="tableContent" class="table-wrapper">
-        <table id="tableTrackingPoint" class="pSelectTable" cellspacing="0" cellpadding="0" width="100%">
+        <table id="tableConfigurations" class="pSelectTable" cellspacing="0" cellpadding="0" width="100%">
             <thead>
                 <th>No.</th>
-                <th>Tracking Point ID</th>
-                <th>Tracking Point Description</th>
+                <th>Configuration ID</th>
+                <th>Configuration Name</th>
+                <th>Configuration Type</th>
+                <th>Configuration Setting</th>
                 <th></th>
                 <th></th>
             </thead>
-            <tbody id="tbodyTrackingPoints"></tbody>
+            <tbody id="tbodyConfigurations"></tbody>
         </table>
     </div>
 </div>
@@ -78,8 +80,8 @@ include 'footer.php';
 
     //function to update data in real time whenever there are changes in database record
     function getAllDataRealtime() {
-        db.collection("trackingPoints").onSnapshot((querySnapshot) => {
-            var points = [];
+        db.collection("configurations").onSnapshot((querySnapshot) => {
+            var configs = [];
             var allID = [];
 
             const params = (new URL(document.location)).searchParams;
@@ -92,33 +94,33 @@ include 'footer.php';
 
                 if (tempId == seekID)
                 {
-                    points.push(doc.data());
+                    configs.push(doc.data());
                     allID.push(doc.id);
                 }
             });
 
             var tContent = "";
 
-            if (points.length < 1)
+            if (configs.length < 1)
             {
-                tContent = '<p>No tracking point records found.</p>';
+                tContent = '<p>No configuration records found.</p>';
                 $(tContent).appendTo('#tableContent');
-                $('#tableTrackingPoint').hide();
+                $('#tableConfigurations').hide();
             }
             else
             {
                 $('p').hide();
-                $('#tableTrackingPoint').show();
-                addAllItemToTable(allID, points);
+                $('#tableConfigurations').show();
+                addAllItemToTable(allID, configs);
             }
         });
     }
 
     //function to display data on website page table
-    var pointNo = 0;
-    var tbody = document.getElementById('tbodyTrackingPoints');
+    var configNo = 0;
+    var tbody = document.getElementById('tbodyConfigurations');
 
-    function addItemToTable(pointID, pointDesc) {
+    function addItemToTable(configID, configName, configType, configSetting) {
         const params = (new URL(document.location)).searchParams;
         const seekID = params.get('airportID');
 
@@ -128,33 +130,37 @@ include 'footer.php';
         var td3 = document.createElement('td');
         var td4 = document.createElement('td');
         var td5 = document.createElement('td');
+        var td6 = document.createElement('td');
+        var td7 = document.createElement('td');
 
-        td1.innerHTML = ++pointNo;
-        td2.innerHTML = pointID;
-        td3.innerHTML = pointDesc;
+        td1.innerHTML = ++configNo;
+        td2.innerHTML = configID;
+        td3.innerHTML = configName;
+        td4.innerHTML = configType;
+        td5.innerHTML = configSetting;
 
         var form = document.createElement('form');
         form.setAttribute('method', 'get');
-        form.setAttribute('action', 'personnel-trackingpointsupdate.php');
+        form.setAttribute('action', 'personnel-configurationsupdate.php');
         var inputField = document.createElement('input');
         inputField.type = "hidden";
-        inputField.name = "pointID";
-        inputField.value = pointID;
+        inputField.name = "configID";
+        inputField.value = configID;
         var btn = document.createElement('input');
         btn.type = "submit";
         btn.value = "Update";
         btn.className = "pSelectTableBtn";
         form.appendChild(inputField);
         form.appendChild(btn);
-        td4.appendChild(form);
+        td6.appendChild(form);
 
         var form2 = document.createElement('form');
         form2.setAttribute('method', 'get');
-        form2.setAttribute('action', 'confirm-delete-trackingpoints.php');
+        form2.setAttribute('action', 'confirm-delete-configurations.php');
         var inputField2 = document.createElement('input');
         inputField2.type = "hidden";
-        inputField2.name = "pointID";
-        inputField2.value = pointID;
+        inputField2.name = "configID";
+        inputField2.value = configID;
         var inputField3 = document.createElement('input');
         inputField3.type = "hidden";
         inputField3.name = "airportID";
@@ -166,22 +172,24 @@ include 'footer.php';
         form2.appendChild(inputField2);
         form2.appendChild(inputField3);
         form2.appendChild(btn2);
-        td5.appendChild(form2);
+        td7.appendChild(form2);
 
         trow.appendChild(td1);
         trow.appendChild(td2);
         trow.appendChild(td3);
         trow.appendChild(td4);
         trow.appendChild(td5);
+        trow.appendChild(td6);
+        trow.appendChild(td7);
 
         tbody.appendChild(trow);
     }
 
-    function addAllItemToTable(trackingpointIDList, trackingpointList) {
-        pointNo = 0;
+    function addAllItemToTable(idList, configList) {
+        configNo = 0;
         tbody.innerHTML = "";
-        trackingpointList.forEach(element => {
-            addItemToTable(trackingpointIDList[pointNo], element.trackingDesc);
+        configList.forEach(element => {
+            addItemToTable(idList[configNo], element.configName, element.configType, element.configSetting);
         });
     }
 

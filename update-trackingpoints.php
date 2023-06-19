@@ -35,16 +35,29 @@ if (isset($_GET['updatetrackingpoint_btn']))
             }
             else
             {
-                // update the changes
-                $pointRef = $db->collection('trackingPoints')->document($pId)->update([
-                    ['path' => 'trackingDesc', 'value' => $pDesc]
-                ]);
+                // validate for empty input
+                if ($pDesc == "")
+                {
+                    // fail to update due to empty field
+                    echo '<script>
+                    alert("Fail to update tracking point! Field is empty.");
+                    window.location.href = "personnel-trackingpoints.php?airportID='.$aId.'";
+                    </script>';
+                    exit();
+                }
+                else
+                {
+                    // update the changes
+                    $db->collection('trackingPoints')->document($pId)->update([
+                        ['path' => 'trackingDesc', 'value' => $pDesc]
+                    ]);
 
-                echo '<script>
-                alert("Successfully updated tracking point details!");
-                window.location.href = "personnel-trackingpoints.php?airportID='.$aId.'";
-                </script>';
-                exit();
+                    echo '<script>
+                    alert("Successfully updated tracking point details!");
+                    window.location.href = "personnel-trackingpoints.php?airportID='.$aId.'";
+                    </script>';
+                    exit();
+                }
             }
         }
         // else (tracking point does not exist)
