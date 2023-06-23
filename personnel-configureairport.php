@@ -9,7 +9,7 @@ if (!isset($_SESSION['personnelUser'])) {
 } else {
     include 'personnel-header.php';
 
-    $aId = ($_GET['airportID']);
+    $aId = $_GET['airportID'];
 
     $db = new FirestoreClient([
         'projectId' => 'myx-baggage' //Get firestore project id

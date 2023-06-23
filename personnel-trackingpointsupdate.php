@@ -9,7 +9,7 @@ if (!isset($_SESSION['personnelUser'])) {
 } else {
     include 'personnel-header.php';
 
-    $tpId = ($_GET['pointID']);
+    $tpId = $_GET['pointID'];
 
     $db = new FirestoreClient([
         'projectId' => 'myx-baggage' //Get firestore project id
@@ -42,7 +42,7 @@ if (!isset($_SESSION['personnelUser'])) {
         <div class="item">
             <label for="pointID">Tracking Point ID: </label>
             <div class="input">
-                <input type="text" id="pointID" name="pointID" value="<?php echo $tpId; ?>" readonly>
+                <input type="text" id="pointID" name="pointID" value="<?php echo $tpId; ?>" readonly class="greyed-out">
             </div>
         </div>
 
@@ -54,7 +54,7 @@ if (!isset($_SESSION['personnelUser'])) {
         </div>
 
         <div class="item">
-            <label for="" class="desktop-only">&nbsp;</label>
+            <label class="desktop-only">&nbsp;</label>
             <div class="input">
                 <input type="submit" class="submit-btn" name="updatetrackingpoint_btn">
             </div>

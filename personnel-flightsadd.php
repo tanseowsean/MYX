@@ -16,7 +16,7 @@ if (!isset($_SESSION['personnelUser'])) {
     </div>
 
     <!-- display form to add new flight -->
-    <form class="myx-form">
+    <form class="myx-form" action="personnel-selectconfiguration.php" method="post">
 
         <div class="item">
             <label for="fDate">Flight Date: </label>
@@ -33,51 +33,37 @@ if (!isset($_SESSION['personnelUser'])) {
         </div>
 
         <div class="item">
-            <label for="fDepartLoc">Depart Location: </label>
+            <label for="fDepartLoc">Departure Location: </label>
             <div class="input">
-                <select id="fDepartLoc"></select>
+                <select id="fDepartLoc" name="fDepartLoc"></select>
             </div>
         </div>
 
         <div class="item">
-            <label for="fArriveLoc">Arrive Location: </label>
+            <label for="fArriveLoc">Arrival Location: </label>
             <div class="input">
-                <select id="fArriveLoc"></select>
+                <select id="fArriveLoc" name="fArriveLoc"></select>
             </div>
         </div>
 
         <div class="item">
-            <label for="fDepartTime">Depart Time: </label>
+            <label for="fDepartTime">Departure Time: </label>
             <div class="input">
-                <input type="text" id="fDepartTime" value="HH:MM" maxlength="5">
+                <input type="text" id="fDepartTime" name="fDepartTime" value="HH:MM" pattern="[0-2]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" maxlength="5">
             </div>
         </div>
 
         <div class="item">
-            <label for="fArriveTime">Arrive Time: </label>
+            <label for="fArriveTime">Arrival Time: </label>
             <div class="input">
-                <input type="text" id="fArriveTime" value="HH:MM" maxlength="5">
+                <input type="text" id="fArriveTime" name="fArriveTime" value="HH:MM" pattern="[0-2]{1}[0-9]{1}:[0-5]{1}[0-9]{1}" maxlength="5">
             </div>
         </div>
 
         <div class="item">
-            <label for="fStatus">Flight Status: </label>
+            <label class="desktop-only">&nbsp;</label>
             <div class="input">
-                <select id="fStatus">
-                    <option value=""></option>
-                    <option value="Gate Open">Gate Open</option>
-                    <option value="Boarding">Boarding</option>
-                    <option value="Gate Closing">Gate Closing</option>
-                    <option value="Departed">Departed</option>
-                    <option value="Landed">Landed</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="item">
-            <label for="" class="desktop-only">&nbsp;</label>
-            <div class="input">
-                <input type="submit" class="submit-btn">
+                <input type="submit" class="submit-btn" name="addflightdetails-btn">
             </div>
         </div>
 
@@ -152,7 +138,7 @@ include 'footer.php';
         });
     }
 
-    window.onload = getAllDataRealtime;
+    window.onload = getAllDataRealtime();
 </script>
 
 <script src="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>

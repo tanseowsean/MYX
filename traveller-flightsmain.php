@@ -11,7 +11,7 @@ if (!isset($_SESSION['travellerUser'])) {
 
     if (isset($_GET['viewflight_btn']))
     {
-        $aId = ($_GET['airportID']);
+        $aId = $_GET['airportID'];
     }
 
     $db = new FirestoreClient([

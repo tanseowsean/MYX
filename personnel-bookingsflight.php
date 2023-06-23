@@ -11,28 +11,30 @@ if (!isset($_SESSION['personnelUser'])) {
 <!-- Content-Area -->
 <div class="content">
 
-    <!-- display list of airports -->
     <div class="main-title">
-        Configurable Airports
-
-        <div class="subtitle">
-            Select airport to configure
-        </div>
+        Select Flight to View Bookings
     </div>
 
+    <!-- display flights -->
     <div id="tableContent" class="table-wrapper">
-        <table id="tableAirport" class="pSelectTable" cellspacing="0" cellpadding="0" width="100%">
+        <table id="tableFlights" class="pTable" cellspacing="0" cellpadding="0" width="100%">
             <thead>
                 <th>No.</th>
-                <th>Airport ID</th>
-                <th>Airport Name</th>
-                <th>Airport State</th>
+                <th>Flight ID</th>
+                <th>Aircraft</th>
+                <th>Flight Date</th>
+                <th>Departure Location</th>
+                <th>Arrival Location</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+                <th>Status</th>
                 <th></th>
             </thead>
-            <tbody id="tbodyAirports"></tbody>
+            <tbody id="tbodyFlights"></tbody>
         </table>
     </div>
-    <!-- /display list of airports -->
+    <!-- /display flights -->
+
 </div>
 <!-- /Content-Area -->
 
@@ -62,81 +64,97 @@ include 'footer.php';
 
     //function to update data in real time whenever there are changes in database record
     function getAllDataRealtime() {
-        db.collection("airports").onSnapshot((querySnapshot) => {
-            var airports = [];
+        db.collection("flights").onSnapshot((querySnapshot) => {
+            var flights = [];
             var allID = [];
             querySnapshot.forEach(doc => {
-                airports.push(doc.data());
+                flights.push(doc.data());
                 allID.push(doc.id);
             });
-
+            
             var tContent = "";
 
-            if (allID.length < 1) {
-                tContent = '<p>No airport records found.</p>';
+            if (flights.length < 1)
+            {
+                tContent = '<p>No flight records found.</p>';
                 $(tContent).appendTo('#tableContent');
-                $('#tableAirport').hide();
-            } else {
+                $('#tableFlights').hide();
+            }
+            else
+            {
                 $('p').hide();
-                $('#tableAirport').show();
-                addAllItemToTable(allID, airports);
+                $('#tableFlights').show();
+                addAllItemToTable(allID, flights);
             }
         });
     }
 
     //function to display data on website page table
-    var airportNo = 0;
-    var tbody = document.getElementById('tbodyAirports');
+    var flightNo = 0;
+    var tbody = document.getElementById('tbodyFlights');
 
-    function addItemToTable(airportID, airportName, airportState) {
+    function addItemToTable(flightID, aircraft, flightDate, departLocation, arriveLocation, departTime, arriveTime, status) {
         var trow = document.createElement('tr');
         var td1 = document.createElement('td');
         var td2 = document.createElement('td');
         var td3 = document.createElement('td');
         var td4 = document.createElement('td');
         var td5 = document.createElement('td');
+        var td6 = document.createElement('td');
+        var td7 = document.createElement('td');
+        var td8 = document.createElement('td');
+        var td9 = document.createElement('td');
+        var td10 = document.createElement('td');
 
-        td1.innerHTML = ++airportNo;
-        td2.innerHTML = airportID;
-        td3.innerHTML = airportName;
-        td4.innerHTML = airportState;
+        td1.innerHTML = ++flightNo;
+        td2.innerHTML = flightID;
+        td3.innerHTML = aircraft;
+        td4.innerHTML = flightDate;
+        td5.innerHTML = departLocation;
+        td6.innerHTML = arriveLocation;
+        td7.innerHTML = departTime;
+        td8.innerHTML = arriveTime;
+        td9.innerHTML = status;
 
         var form = document.createElement('form');
         form.setAttribute('method', 'get');
-        form.setAttribute('action', 'personnel-configureairport.php');
+        form.setAttribute('action', 'personnel-bookings.php');
         var inputField = document.createElement('input');
         inputField.type = "hidden";
-        inputField.name = "airportID";
-        inputField.value = airportID;
+        inputField.name = "flightID";
+        inputField.value = flightID;
         var btn = document.createElement('input');
         btn.type = "submit";
-        btn.value = "Configure";
+        btn.value = "View";
         btn.className = "pSelectTableBtn";
         form.appendChild(inputField);
         form.appendChild(btn);
-        td5.appendChild(form);
+        td10.appendChild(form);
 
         trow.appendChild(td1);
         trow.appendChild(td2);
         trow.appendChild(td3);
         trow.appendChild(td4);
         trow.appendChild(td5);
+        trow.appendChild(td6);
+        trow.appendChild(td7);
+        trow.appendChild(td8);
+        trow.appendChild(td9);
+        trow.appendChild(td10);
 
         tbody.appendChild(trow);
     }
 
-    function addAllItemToTable(AirportsIDList, AirportsDocList) {
-        airportNo = 0;
+    function addAllItemToTable(FlightsIDList, FlightsDocList) {
+        flightNo = 0;
         tbody.innerHTML = "";
-        AirportsDocList.forEach(element => {
-            addItemToTable(AirportsIDList[airportNo], element.airportName, element.airportState);
+        FlightsDocList.forEach(element => {
+            addItemToTable(FlightsIDList[flightNo], element.aircraft, element.flightDate, element.departLocation, element.arriveLocation, element.departTime, element.arriveTime, element.flightStatus);
         });
     }
 
     window.onload = getAllDataRealtime();
 </script>
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="js/main.js"></script>
 </body>

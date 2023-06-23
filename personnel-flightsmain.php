@@ -24,7 +24,7 @@ if (!isset($_SESSION['personnelUser'])) {
     </div>
 
     <div class="grid two">
-        <a href="personnel-bookings.php" class="item">
+        <a href="personnel-bookingsflight.php" class="item">
             <div class="icon"><img src="images/icon-list.png" alt=""></div>
             <div class="text">Manage Bookings</div>
         </a>

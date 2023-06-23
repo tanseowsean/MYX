@@ -7,9 +7,9 @@ session_start();
 if (isset($_GET['updatetrackingpoint_btn']))
 {
     // retrieve input
-    $aId = ($_GET['airportID']);
-    $pId = ($_GET['pointID']);
-    $pDesc = ($_GET['pointDesc']);
+    $aId = $_GET['airportID'];
+    $pId = $_GET['pointID'];
+    $pDesc = $_GET['pointDesc'];
 
     $db = new FirestoreClient([
         'projectId' => 'myx-baggage' //Get firestore project id

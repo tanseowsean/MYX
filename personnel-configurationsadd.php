@@ -9,7 +9,7 @@ if (!isset($_SESSION['personnelUser'])) {
 } else {
     include 'personnel-header.php';
 
-    $aId = ($_GET['airportID']);
+    $aId = $_GET['airportID'];
 
     $db = new FirestoreClient([
         'projectId' => 'myx-baggage' //Get firestore project id
@@ -89,7 +89,7 @@ if (!isset($_SESSION['personnelUser'])) {
                 </div>
 
                 <div class="item">
-                    <label for="" class="desktop-only">&nbsp;</label>
+                    <label class="desktop-only">&nbsp;</label>
                     <div class="input">
                         <input type="submit" class="submit-btn" name="addconfiguration_btn">
                     </div>
@@ -198,7 +198,7 @@ include 'footer.php';
         });
     }
 
-    window.onload = getAllDataRealtime;
+    window.onload = getAllDataRealtime();
 </script>
 
 </body>

@@ -7,10 +7,10 @@ session_start();
 if (isset($_GET['addtrackingpoint_btn']))
 {
     // retrieve input
-    $aId = ($_GET['airportID']);
-    $pId = ($_GET['pointID']);
+    $aId = $_GET['airportID'];
+    $pId = $_GET['pointID'];
     $tpId = $aId.$pId;
-    $pDesc = ($_GET['pointDesc']);
+    $pDesc = $_GET['pointDesc'];
 
     $db = new FirestoreClient([
         'projectId' => 'myx-baggage' //Get firestore project id
@@ -52,8 +52,6 @@ if (isset($_GET['addtrackingpoint_btn']))
             }
             else
             {
-                $useArr = [];
-
                 // create tracking point
                 $data = [
                     'airportID' => $aId,

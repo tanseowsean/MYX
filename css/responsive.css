@@ -56,6 +56,10 @@
 	.desktop-only {
 		display: block;
 	}
+
+	.myx-form .item .input {
+		margin-top: 0;
+	}
 }
 
 /* Extra large devices (large desktops, 1200px and up) */

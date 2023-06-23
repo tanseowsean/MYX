@@ -6,7 +6,7 @@ if (!isset($_SESSION['personnelUser'])) {
 } else {
     include 'personnel-header.php';
 
-    $aId = ($_GET['airportID']);
+    $aId = $_GET['airportID'];
 }
 ?>
 
@@ -21,7 +21,8 @@ if (!isset($_SESSION['personnelUser'])) {
         <input type="hidden" id="airportID" name="airportID" value="<?php echo $aId; ?>">
         <div class="item">
             <label for="pointID">Tracking Point ID: </label>
-            <div class="input">
+            <div class="input prefix">
+                <div class="airport-id"><?php echo $aId; ?></div>
                 <input type="text" id="pointID" name="pointID">
             </div>
         </div>
@@ -34,7 +35,7 @@ if (!isset($_SESSION['personnelUser'])) {
         </div>
 
         <div class="item">
-            <label for="" class="desktop-only">&nbsp;</label>
+            <label class="desktop-only">&nbsp;</label>
             <div class="input">
                 <input type="submit" class="submit-btn" name="addtrackingpoint_btn">
             </div>

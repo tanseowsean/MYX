@@ -6,9 +6,9 @@ session_start();
 
 if (isset($_POST['register_btn'])) {
     // retrieve input
-    $accEmail = ($_POST['accEmail']);
-    $accUsername = ($_POST['accUsername']);
-    $accPassword = md5(($_POST['accPassword']));
+    $accEmail = $_POST['accEmail'];
+    $accUsername = $_POST['accUsername'];
+    $accPassword = md5($_POST['accPassword']);
 
     $db = new FirestoreClient([
         'projectId' => 'myx-baggage' //Get firestore project id

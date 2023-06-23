@@ -5,8 +5,8 @@ use Google\Cloud\Firestore\FirestoreClient;
 session_start();
 
 // retrieve input
-$aId = ($_GET['airportID']);
-$pId = ($_GET['pointID']);
+$aId = $_GET['airportID'];
+$pId = $_GET['pointID'];
 
 $db = new FirestoreClient([
     'projectId' => 'myx-baggage' //Get firestore project id

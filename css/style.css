@@ -371,6 +371,24 @@ footer .copyright {
 	color: #666;
 }
 
+.myx-form .item .input.prefix {
+	display: flex;
+	align-items: center;
+}
+
+.myx-form .item .input.prefix input {
+	margin-left: 10px;
+}
+
+.myx-form .item .input .greyed-out {
+	background-color: #eee;
+	cursor: default;
+}
+
+.myx-form .item .input .greyed-out:focus {
+	outline: 0;
+}
+
 .myx-form .item .input .submit-btn {
 	background-color: #333;
 	color: #fff;
@@ -478,4 +496,9 @@ footer .copyright {
 
 .multi-select .row.fields {
 	align-items: center;
+}
+
+.chart-wrapper {
+	max-width: 800px;
+	margin: 0 auto;
 }

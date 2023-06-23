@@ -5,34 +5,32 @@ if (!isset($_SESSION['personnelUser'])) {
     exit();
 } else {
     include 'personnel-header.php';
+
+    $fId = $_GET['flightID'];
 }
 ?>
 
 <!-- Content-Area -->
 <div class="content">
 
-    <!-- display list of airports -->
     <div class="main-title">
-        Configurable Airports
-
-        <div class="subtitle">
-            Select airport to configure
-        </div>
+        <?php echo $fId; ?> Flight Bookings
     </div>
 
+    <!-- display bookings -->
     <div id="tableContent" class="table-wrapper">
-        <table id="tableAirport" class="pSelectTable" cellspacing="0" cellpadding="0" width="100%">
+        <table id="tableBookings" class="pTable" cellspacing="0" cellpadding="0" width="100%">
             <thead>
                 <th>No.</th>
-                <th>Airport ID</th>
-                <th>Airport Name</th>
-                <th>Airport State</th>
+                <th>Booking ID</th>
+                <th>Identity Type</th>
                 <th></th>
             </thead>
-            <tbody id="tbodyAirports"></tbody>
+            <tbody id="tbodyBookings"></tbody>
         </table>
     </div>
-    <!-- /display list of airports -->
+    <!-- /display bookings -->
+
 </div>
 <!-- /Content-Area -->
 
@@ -62,81 +60,106 @@ include 'footer.php';
 
     //function to update data in real time whenever there are changes in database record
     function getAllDataRealtime() {
-        db.collection("airports").onSnapshot((querySnapshot) => {
-            var airports = [];
+        db.collection("bookings").onSnapshot((querySnapshot) => {
+            var allBookings = [];
             var allID = [];
+
             querySnapshot.forEach(doc => {
-                airports.push(doc.data());
+                allBookings.push(doc.data());
                 allID.push(doc.id);
             });
-
-            var tContent = "";
-
-            if (allID.length < 1) {
-                tContent = '<p>No airport records found.</p>';
-                $(tContent).appendTo('#tableContent');
-                $('#tableAirport').hide();
-            } else {
-                $('p').hide();
-                $('#tableAirport').show();
-                addAllItemToTable(allID, airports);
-            }
+            
+            checkAvailableBooking(allID, allBookings);
         });
     }
 
-    //function to display data on website page table
-    var airportNo = 0;
-    var tbody = document.getElementById('tbodyAirports');
+    function checkAvailableBooking(allIDList, allBookingList)
+    {
+        const params = (new URL(document.location)).searchParams;
+        var flightID = params.get('flightID');
 
-    function addItemToTable(airportID, airportName, airportState) {
+        var idList = [];
+        var bookingList = [];
+        var tempIndex = 0;
+
+        allBookingList.forEach(element => {
+            if (element.flightID == flightID)
+            {
+                bookingList.push(allBookingList[tempIndex]);
+                idList.push(allIDList[tempIndex]);
+            }
+            tempIndex++;
+        });
+
+        var tContent = "";
+
+        if (bookingList.length < 1)
+        {
+            tContent = '<p>No booking records found.</p>';
+            $(tContent).appendTo('#tableContent');
+            $('#tableBookings').hide();
+        }
+        else
+        {
+            $('p').hide();
+            $('#tableBookings').show();
+            addAllItemToTable(idList, bookingList, flightID);
+        }
+    }
+
+    //function to display data on website page table
+    var no = 0;
+    var tbody = document.getElementById('tbodyBookings');
+
+    function addItemToTable(bookingNo, identityType, flightID) {
         var trow = document.createElement('tr');
         var td1 = document.createElement('td');
         var td2 = document.createElement('td');
         var td3 = document.createElement('td');
         var td4 = document.createElement('td');
-        var td5 = document.createElement('td');
 
-        td1.innerHTML = ++airportNo;
-        td2.innerHTML = airportID;
-        td3.innerHTML = airportName;
-        td4.innerHTML = airportState;
+        td1.innerHTML = ++no;
+        td2.innerHTML = bookingNo;
+        td3.innerHTML = identityType;
 
         var form = document.createElement('form');
         form.setAttribute('method', 'get');
-        form.setAttribute('action', 'personnel-configureairport.php');
+        form.setAttribute('action', 'confirm-delete-bookings.php');
         var inputField = document.createElement('input');
         inputField.type = "hidden";
-        inputField.name = "airportID";
-        inputField.value = airportID;
+        inputField.name = "bookingNo";
+        inputField.value = bookingNo;
+        var inputField2 = document.createElement('input');
+        inputField2.type = "hidden";
+        inputField2.name = "flightID";
+        inputField2.value = flightID;
         var btn = document.createElement('input');
         btn.type = "submit";
-        btn.value = "Configure";
+        btn.value = "Delete";
         btn.className = "pSelectTableBtn";
         form.appendChild(inputField);
+        form.appendChild(inputField2);
         form.appendChild(btn);
-        td5.appendChild(form);
+        td4.appendChild(form);
 
         trow.appendChild(td1);
         trow.appendChild(td2);
         trow.appendChild(td3);
         trow.appendChild(td4);
-        trow.appendChild(td5);
 
         tbody.appendChild(trow);
     }
 
-    function addAllItemToTable(AirportsIDList, AirportsDocList) {
-        airportNo = 0;
+    function addAllItemToTable(idList, bookingList, flightID) {
+        no = 0;
         tbody.innerHTML = "";
-        AirportsDocList.forEach(element => {
-            addItemToTable(AirportsIDList[airportNo], element.airportName, element.airportState);
+        bookingList.forEach(element => {
+            addItemToTable(idList[no], element.identityType, flightID);
         });
     }
 
     window.onload = getAllDataRealtime();
 </script>
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="js/main.js"></script>
 </body>

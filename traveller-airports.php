@@ -110,10 +110,7 @@ include 'footer.php'
         inputField.type = "hidden";
         inputField.name = "airportID";
         inputField.value = airportID;
-        // var inputField2 = document.createELement('input');
-        // inputField2.type = "hidden";
-        // inputField2.name = "airportName";
-        // inputField2.value = airportName;
+        
         var btn = document.createElement('input');
         btn.name = "viewflight_btn";
         btn.type = "submit";
@@ -140,7 +137,7 @@ include 'footer.php'
         });
     }
 
-    window.onload = getAllDataRealtime;
+    window.onload = getAllDataRealtime();
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="js/main.js"></script>

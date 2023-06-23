@@ -9,7 +9,7 @@ if (!isset($_SESSION['personnelUser'])) {
 } else {
     include 'personnel-header.php';
 
-    $aId = ($_GET['airportID']);
+    $aId = $_GET['airportID'];
 
     $db = new FirestoreClient([
         'projectId' => 'myx-baggage' //Get firestore project id
@@ -44,7 +44,6 @@ if (!isset($_SESSION['personnelUser'])) {
                 <th>Configuration Name</th>
                 <th>Configuration Type</th>
                 <th>Configuration Setting</th>
-                <th></th>
                 <th></th>
             </thead>
             <tbody id="tbodyConfigurations"></tbody>
@@ -131,7 +130,6 @@ include 'footer.php';
         var td4 = document.createElement('td');
         var td5 = document.createElement('td');
         var td6 = document.createElement('td');
-        var td7 = document.createElement('td');
 
         td1.innerHTML = ++configNo;
         td2.innerHTML = configID;
@@ -141,38 +139,23 @@ include 'footer.php';
 
         var form = document.createElement('form');
         form.setAttribute('method', 'get');
-        form.setAttribute('action', 'personnel-configurationsupdate.php');
+        form.setAttribute('action', 'confirm-delete-configurations.php');
         var inputField = document.createElement('input');
         inputField.type = "hidden";
         inputField.name = "configID";
         inputField.value = configID;
-        var btn = document.createElement('input');
-        btn.type = "submit";
-        btn.value = "Update";
-        btn.className = "pSelectTableBtn";
-        form.appendChild(inputField);
-        form.appendChild(btn);
-        td6.appendChild(form);
-
-        var form2 = document.createElement('form');
-        form2.setAttribute('method', 'get');
-        form2.setAttribute('action', 'confirm-delete-configurations.php');
         var inputField2 = document.createElement('input');
         inputField2.type = "hidden";
-        inputField2.name = "configID";
-        inputField2.value = configID;
-        var inputField3 = document.createElement('input');
-        inputField3.type = "hidden";
-        inputField3.name = "airportID";
-        inputField3.value = seekID;
-        var btn2 = document.createElement('input');
-        btn2.type = "submit";
-        btn2.value = "Delete";
-        btn2.className = "pSelectTableBtn";
-        form2.appendChild(inputField2);
-        form2.appendChild(inputField3);
-        form2.appendChild(btn2);
-        td7.appendChild(form2);
+        inputField2.name = "airportID";
+        inputField2.value = seekID;
+        var btn = document.createElement('input');
+        btn.type = "submit";
+        btn.value = "Delete";
+        btn.className = "pSelectTableBtn";
+        form.appendChild(inputField);
+        form.appendChild(inputField2);
+        form.appendChild(btn);
+        td6.appendChild(form);
 
         trow.appendChild(td1);
         trow.appendChild(td2);
@@ -180,7 +163,6 @@ include 'footer.php';
         trow.appendChild(td4);
         trow.appendChild(td5);
         trow.appendChild(td6);
-        trow.appendChild(td7);
 
         tbody.appendChild(trow);
     }
@@ -193,7 +175,7 @@ include 'footer.php';
         });
     }
 
-    window.onload = getAllDataRealtime;
+    window.onload = getAllDataRealtime();
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

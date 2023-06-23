@@ -3,8 +3,8 @@
 session_start();
 
 // retrieve input
-$aId = ($_GET['airportID']);
-$pId = ($_GET['pointID']);
+$aId = $_GET['airportID'];
+$pId = $_GET['pointID'];
 
 echo '<script>
 var confirmMsg = "Are you sure you want to delete tracking point with ID '.$pId.'?";

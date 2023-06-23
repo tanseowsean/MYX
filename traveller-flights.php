@@ -9,8 +9,8 @@ if (!isset($_SESSION['travellerUser'])) {
 } else {
     include 'traveller-header.php';
 
-    $aId = ($_GET['airportID']);
-    $fType = ($_GET['flightType']);
+    $aId = $_GET['airportID'];
+    $fType = $_GET['flightType'];
 
     $db = new FirestoreClient([
         'projectId' => 'myx-baggage' //Get firestore project id
