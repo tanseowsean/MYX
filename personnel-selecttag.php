@@ -11,6 +11,7 @@ if (!isset($_SESSION['personnelUser'])) {
     if(isset($_POST['checkin_btn']))
     {
         // retrieve input
+        $aId = $_POST['airportID'];
         $bookingNo = $_POST['bookingNo'];
         $identityNo = $_POST['identityNo'];
         $hashedIdentityNo = md5($identityNo);
@@ -22,7 +23,7 @@ if (!isset($_SESSION['personnelUser'])) {
             // empty booking number field
             echo '<script>
             alert("Booking number field is empty!");
-            window.location.href = "personnel-checkin.php";
+            window.location.href = "personnel-checkin.php?airportID='.$aId.'";
             </script>';
             exit();
         }
@@ -32,7 +33,7 @@ if (!isset($_SESSION['personnelUser'])) {
             // empty identity number field
             echo '<script>
             alert("Identity number field is empty!");
-            window.location.href = "personnel-checkin.php";
+            window.location.href = "personnel-checkin.php?airportID='.$aId.'";
             </script>';
             exit();
         }
@@ -50,6 +51,7 @@ if (!isset($_SESSION['personnelUser'])) {
                 $bArr = $db->collection('bookings')->document($bookingNo)->snapshot()->data();
 
                 $bIdentityType = $bArr['identityType'];
+                $fId = $bArr['flightID'];
 
                 if ($identityType == $bIdentityType)
                 {
@@ -57,14 +59,31 @@ if (!isset($_SESSION['personnelUser'])) {
                     $bIdentityNo = $bArr['identityNo'];
                     if ($hashedIdentityNo == $bIdentityNo)
                     {
-                        // stay in this page
+                        // check if check in location is correct
+                        $fArr = $db->collection('flights')->document($fId)->snapshot()->data();
+                        $fDepartLoc = $fArr['departLocation'];
+
+                        if($fDepartLoc != $aId)
+                        {
+                            // incorrect check in location
+                            echo '<script>
+                            alert("Incorrect check in location!");
+                            window.location.href = "personnel-checkin.php?airportID='.$aId.'";
+                            </script>';
+                            exit();
+                        }
+                        else
+                        {
+                            // stay in this page
+                            include 'personnel-header.php';
+                        }
                     }
                     else
                     {
                         // incorrect identity number
                         echo '<script>
                         alert("Incorrect identity number!");
-                        window.location.href = "personnel-checkin.php";
+                        window.location.href = "personnel-checkin.php?airportID='.$aId.'";
                         </script>';
                         exit();
                     }
@@ -74,7 +93,7 @@ if (!isset($_SESSION['personnelUser'])) {
                     // incorrect identity type
                     echo '<script>
                     alert("Incorrect identity type!");
-                    window.location.href = "personnel-checkin.php";
+                    window.location.href = "personnel-checkin.php?airportID='.$aId.'";
                     </script>';
                     exit();
                 }
@@ -84,7 +103,7 @@ if (!isset($_SESSION['personnelUser'])) {
                 // booking does not exist
                 echo '<script>
                 alert("Booking does not exist!");
-                window.location.href = "personnel-checkin.php";
+                window.location.href = "personnel-checkin.php?airportID='.$aId.'";
                 </script>';
                 exit();
             }
@@ -94,8 +113,11 @@ if (!isset($_SESSION['personnelUser'])) {
             return $exception->getMessage();
         }
     }
-
-    include 'personnel-header.php';
+    else
+    {
+        header('Location: personnel-checkinairport.php');
+        exit();
+    }
 }
 ?>
 
@@ -106,7 +128,9 @@ if (!isset($_SESSION['personnelUser'])) {
         Select Tag
     </div>
 
+    <input type="hidden" id="airportID" name="airportID" value="<?php echo $aId; ?>">
     <input type="hidden" id="bookingNo" name="bookingNo" value="<?php echo $bookingNo; ?>">
+    <input type="hidden" id="flightID" name="flightID" value="<?php echo $fId; ?>">
 
     <div id="tableContent" class="table-wrapper">
         <table id="tableTags" class="pTable" cellspacing="0" cellpadding="0" width="100%">
@@ -165,6 +189,8 @@ include 'footer.php';
     function checkAvailableTag(allIDList, allTagList)
     {
         var bookingNo = document.getElementById('bookingNo').value;
+        var flightID = document.getElementById('flightID').value;
+        var airportID = document.getElementById('airportID').value;
 
         var idList = [];
         var tagList = [];
@@ -173,8 +199,11 @@ include 'footer.php';
         allTagList.forEach(element => {
             if (element.usage == 0)
             {
-                tagList.push(allTagList[tempIndex]);
-                idList.push(allIDList[tempIndex]);
+                if (element.airportID = airportID)
+                {
+                    tagList.push(allTagList[tempIndex]);
+                    idList.push(allIDList[tempIndex]);
+                }
             }
             tempIndex++;
         });
@@ -191,7 +220,7 @@ include 'footer.php';
         {
             $('p').hide();
             $('#tableTags').show();
-            addAllItemToTable(idList, tagList, bookingNo);
+            addAllItemToTable(idList, tagList, bookingNo, flightID, airportID);
         }
     }
 
@@ -199,7 +228,7 @@ include 'footer.php';
     var no = 0;
     var tbody = document.getElementById('tbodyTags');
 
-    function addItemToTable(tagID, detectTime, bookingNo) {
+    function addItemToTable(tagID, detectTime, bookingNo, flightID, airportID) {
         var trow = document.createElement('tr');
         var td1 = document.createElement('td');
         var td2 = document.createElement('td');
@@ -212,7 +241,7 @@ include 'footer.php';
 
         var form = document.createElement('form');
         form.setAttribute('method', 'post');
-        form.setAttribute('action', 'create-tracking.php');
+        form.setAttribute('action', 'add-trackings.php');
         var inputField = document.createElement('input');
         inputField.type = "hidden";
         inputField.name = "tagID";
@@ -221,12 +250,23 @@ include 'footer.php';
         inputField2.type = "hidden";
         inputField2.name = "bookingNo";
         inputField2.value = bookingNo;
+        var inputField3 = document.createElement('input');
+        inputField3.type = "hidden";
+        inputField3.name = "flightID";
+        inputField3.value = flightID;
+        var inputField4 = document.createElement('input');
+        inputField4.type = "hidden";
+        inputField4.name = "airportID";
+        inputField4.value = airportID;
         var btn = document.createElement('input');
         btn.type = "submit";
         btn.value = "Select";
+        btn.name = "createtracking_btn";
         btn.className = "pSelectTableBtn";
         form.appendChild(inputField);
         form.appendChild(inputField2);
+        form.appendChild(inputField3);
+        form.appendChild(inputField4);
         form.appendChild(btn);
         td4.appendChild(form);
 
@@ -238,11 +278,11 @@ include 'footer.php';
         tbody.appendChild(trow);
     }
 
-    function addAllItemToTable(idList, tagList, bookingNo) {
+    function addAllItemToTable(idList, tagList, bookingNo, flightID, airportID) {
         no = 0;
         tbody.innerHTML = "";
         tagList.forEach(element => {
-            addItemToTable(idList[no], element.detectTime);
+            addItemToTable(idList[no], element.detectTime, bookingNo, flightID, airportID);
         });
     }
 

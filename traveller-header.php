@@ -70,7 +70,7 @@ if (isset($_SESSION['username']))
                 <div class="icon"><img src="images/icon-plane.png" alt=""></div>
                 <div class="text">Flights</div>
             </a>
-            <a href="traveller-baggage.php" class="item">
+            <a href="traveller-baggagecheck.php" class="item">
                 <div class="icon"><img src="images/icon-luggage.png" alt=""></div>
                 <div class="text">Baggage</div>
             </a>

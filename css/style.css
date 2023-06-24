@@ -502,3 +502,53 @@ footer .copyright {
 	max-width: 800px;
 	margin: 0 auto;
 }
+
+.baggage-status {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.baggage-status .thumb {
+	width: 40%;
+	padding-right: 25px;
+	opacity: 0.8;
+}
+
+.baggage-status .journey {
+	width: 60%;
+	padding-left: 25px;
+}
+
+.journey .path {
+	text-align: left;
+	display: flex;
+	align-items: center;
+}
+
+.journey .path:before {
+	content: '•';
+	display: inline-block;
+	font-size: 31px;
+	margin-right: 10px;
+}
+
+.journey .path .text {
+	position: relative;
+}
+
+.journey .path .text:before {
+	content: '';
+	border-left: 2px solid #333;
+	position: absolute;
+	left: -17px;
+	top: 15px;
+	width: 3px;
+	height: 35px;
+}
+
+.journey .path:last-of-type .text:before {
+	border-left: 0;
+}

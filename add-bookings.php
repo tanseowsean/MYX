@@ -9,7 +9,7 @@ if(isset($_POST['addbooking_btn']))
     // retrieve input
     $bookingNum = $_POST['bookingNo'];
     $identityNum = $_POST['identityNo'];
-    $hasedIdentityNum = md5($identityNum);
+    $hashedIdentityNum = md5($identityNum);
     $identityType = $_POST['identityNo'];
     $fId = $_POST['flightID'];
 
@@ -53,9 +53,10 @@ if(isset($_POST['addbooking_btn']))
         else // booking does not exist
         {
             $data = [
-                'identityNo' => $hasedIdentityNum,
+                'identityNo' => $hashedIdentityNum,
                 'identityType' => $identityType,
-                'flightID' => $fId
+                'flightID' => $fId,
+                'usage' => 0
             ];
 
             // update flight usage

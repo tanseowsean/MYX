@@ -7,39 +7,63 @@ if (!isset($_SESSION['travellerUser'])) {
     header('Location: index.php');
     exit();
 } else {
-    include 'traveller-header.php';
+    if(isset($_GET['airportID']) && $_GET['flightType'])
+    {
+        $aId = $_GET['airportID'];
+        $fType = $_GET['flightType'];
 
-    $aId = $_GET['airportID'];
-    $fType = $_GET['flightType'];
-
-    $db = new FirestoreClient([
-        'projectId' => 'myx-baggage' //Get firestore project id
-    ]);
-
-    try {
-        // search for airport name
-        if ($db->collection('airports')->document($aId)->snapshot()->exists()) {
-            $aArr = $db->collection('airports')->document($aId)->snapshot()->data();
-
-            // retrieve airport name
-            $aName = $aArr['airportName'];
+        switch($fType)
+        {
+            case "departures":
+                $titleText = "Departure";
+                break;
+            case "arrivals":
+                $titleText = "Arrival";
+                break;
         }
-    } catch (Exception $exception) {
-        return $exception->getMessage();
+
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $currentDate = date("Y-m-d");
+
+        $db = new FirestoreClient([
+            'projectId' => 'myx-baggage' //Get firestore project id
+        ]);
+    
+        try {
+            // search for airport name
+            if ($db->collection('airports')->document($aId)->snapshot()->exists()) {
+                $aArr = $db->collection('airports')->document($aId)->snapshot()->data();
+    
+                // retrieve airport name
+                $aName = $aArr['airportName'];
+            }
+        } catch (Exception $exception) {
+            return $exception->getMessage();
+        }
+
+        include 'traveller-header.php';
+    }
+    else
+    {
+        header('Location: traveller-airports.php');
+        exit();
     }
 }
 ?>
 
 <!-- Content-Area -->
 <div class="content">
-    <div class="main-title"><?php echo $aName; ?> Flights</div>
+    <div class="main-title"><?php echo $aName." ".$titleText; ?> Flights</div>
+
+    <input type="hidden" id="airportID" name="airportID" value="<?php echo $aId; ?>">
+    <input type="hidden" id="flightType" name="flightType" value="<?php echo $fType; ?>">
+    <input type="hidden" id="currentDate" name="currentDate" value="<?php echo $currentDate; ?>">
 
     <!-- display flights -->
-    <div class="table-wrapper">
-        <table class="pTable" cellspacing="0" cellpadding="0" width="100%">
+    <div id="tableContent" class="table-wrapper">
+        <table id="tableFlights" class="pTable" cellspacing="0" cellpadding="0" width="100%">
             <thead>
                 <th>No.</th>
-                <th>Flight ID</th>
                 <th>Aircraft</th>
                 <th>Flight Date</th>
                 <th>Departure Location</th>
@@ -61,7 +85,7 @@ include 'footer.php'
 ?>
 </div>
 
-<!-- <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"></script>
 
@@ -79,49 +103,124 @@ include 'footer.php'
     firebase.initializeApp(firebaseConfig);
     let db = firebase.firestore();
 
-    var aId = "";
-
-    window.addEventListener('load', () => {
-        const params = (new URL(document.location)).searchParams;
-        aId = params.get('airportID');
-
-        document.getElementById('aID').innerHTML = aId;
-    })
-
-    //function to retrieve data
-    function getAllData() {
-        db.collection("airports").get().then((querySnapshot) => {
-            var airports = [];
+    //function to update data in real time whenever there are changes in database record
+    function getAllDataRealtime() {
+        db.collection("flights").onSnapshot((querySnapshot) => {
+            var allflights = [];
             var allID = [];
             querySnapshot.forEach(doc => {
-                airports.push(doc.data());
+                allflights.push(doc.data());
                 allID.push(doc.id);
             });
-            searchForAirportName(allID, airports);
+
+            prepareTable(allID, allflights);
         });
     }
 
-    var i = 0;
-
-    function getName(id, name)
+    function prepareTable(allIDList, allFlightsList)
     {
-        if (id == aId)
+        var seekAirport = document.getElementById('airportID').value;
+        var seekType = document.getElementById('flightType').value;
+        var currentDate = document.getElementById('currentDate').value;
+
+        var flights = [];
+        var tempIndex = 0;
+
+        if (seekType == "departures")
         {
-            document.getElementById('airportNameText').innerHTML = name;
+            allFlightsList.forEach(element => {
+                if(element.flightDate == currentDate)
+                {
+                    if (element.flightStatus != "")
+                    {
+                        if(element.departLocation == seekAirport)
+                        {
+                            flights.push(allFlightsList[tempIndex]);
+                        }
+                    }
+                }
+                tempIndex++;
+            });
+        }
+        else
+        {
+            allFlightsList.forEach(element => {
+                if(element.flightDate == currentDate)
+                {
+                    if (element.flightStatus != "")
+                    {
+                        if(element.arriveLocation == seekAirport)
+                        {
+                            flights.push(allFlightsList[tempIndex]);
+                        }
+                    }
+                }
+                tempIndex++;
+            });
+        }
+
+        var tContent = "";
+
+        if (flights.length < 1)
+        {
+            tContent = '<p>No flight records found.</p>';
+            $(tContent).appendTo('#tableContent');
+            $('#tableFlights').hide();
+        }
+        else
+        {
+            $('p').hide();
+            $('#tableFlights').show();
+            addAllItemToTable(flights);
         }
     }
 
-    function searchForAirportName(idList, airportList)
-    {
-        i = 0;
+    //function to display data on website page table
+    var flightNo = 0;
+    var tbody = document.getElementById('tbodyFlights');
 
-        airportList.forEach(e => {
-            getName(idList[i], e.airportName);
+    function addItemToTable(aircraft, flightDate, departLocation, arriveLocation, departTime, arriveTime, status) {
+        var trow = document.createElement('tr');
+        var td1 = document.createElement('td');
+        var td2 = document.createElement('td');
+        var td3 = document.createElement('td');
+        var td4 = document.createElement('td');
+        var td5 = document.createElement('td');
+        var td6 = document.createElement('td');
+        var td7 = document.createElement('td');
+        var td8 = document.createElement('td');
+
+        td1.innerHTML = ++flightNo;
+        td2.innerHTML = aircraft;
+        td3.innerHTML = flightDate;
+        td4.innerHTML = departLocation;
+        td5.innerHTML = arriveLocation;
+        td6.innerHTML = departTime;
+        td7.innerHTML = arriveTime;
+        td8.innerHTML = status;
+
+        trow.appendChild(td1);
+        trow.appendChild(td2);
+        trow.appendChild(td3);
+        trow.appendChild(td4);
+        trow.appendChild(td5);
+        trow.appendChild(td6);
+        trow.appendChild(td7);
+        trow.appendChild(td8);
+
+        tbody.appendChild(trow);
+    }
+
+    function addAllItemToTable(FlightsDocList) {
+        flightNo = 0;
+        tbody.innerHTML = "";
+        FlightsDocList.forEach(element => {
+            addItemToTable(element.aircraft, element.flightDate, element.departLocation, element.arriveLocation, element.departTime, element.arriveTime, element.flightStatus);
         });
     }
 
-    window.onload = getAllData;
-</script> -->
+    window.onload = getAllDataRealtime();
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="js/main.js"></script>

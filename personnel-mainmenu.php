@@ -12,7 +12,7 @@ if (!isset($_SESSION['personnelUser'])) {
 <div class="content">
 
     <div class="grid">
-        <a href="personnel-checkin.php" class="item">
+        <a href="personnel-checkinairport.php" class="item">
             <div class="icon"><img src="images/icon-checkin.png" alt=""></div>
             <div class="text">Check In</div>
         </a>

@@ -43,7 +43,7 @@ if (isset($_SESSION['username']))
                 <div class="icon"><img src="images/icon-menu.png" alt=""></div>
                 <div class="text">Main Menu</div>
             </a>
-            <a href="personnel-checkin.php" class="item">
+            <a href="personnel-checkinairport.php" class="item">
                 <div class="icon"><img src="images/icon-checkin.png" alt=""></div>
                 <div class="text">Check In</div>
             </a>
