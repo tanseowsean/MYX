@@ -83,7 +83,7 @@ if (isset($_POST['addconfiguration_btn']))
                 'configType' => $cType,
                 'configSetting' => $cPoints,
                 'airportID' => $aId,
-                'configUsage' => 0
+                'usage' => 0
             ];
 
             // update tracking points usage

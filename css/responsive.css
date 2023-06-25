@@ -60,6 +60,31 @@
 	.myx-form .item .input {
 		margin-top: 0;
 	}
+
+	.baggage-status .thumb {
+		width: 35%;
+		padding-right: 25px;
+		opacity: 0.8;
+	}
+
+	.baggage-status .journey {
+		width: 65%;
+		padding-left: 25px;
+	}
+
+	.journey .path .text {
+		white-space: nowrap;
+	}
+
+	.journey .path .text:before {
+		content: '';
+		border-left: 2px solid #333;
+		position: absolute;
+		left: -17px;
+		top: 15px;
+		width: 3px;
+		height: 35px;
+	}
 }
 
 /* Extra large devices (large desktops, 1200px and up) */

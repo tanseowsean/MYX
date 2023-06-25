@@ -505,21 +505,21 @@ footer .copyright {
 
 .baggage-status {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
-	max-width: 600px;
+	max-width: 700px;
 	margin: 0 auto;
 }
 
 .baggage-status .thumb {
-	width: 40%;
-	padding-right: 25px;
+	width: 70%;
 	opacity: 0.8;
+	margin: 0 auto 20px auto;
 }
 
 .baggage-status .journey {
-	width: 60%;
-	padding-left: 25px;
+	width: 100%;
 }
 
 .journey .path {
@@ -537,16 +537,6 @@ footer .copyright {
 
 .journey .path .text {
 	position: relative;
-}
-
-.journey .path .text:before {
-	content: '';
-	border-left: 2px solid #333;
-	position: absolute;
-	left: -17px;
-	top: 15px;
-	width: 3px;
-	height: 35px;
 }
 
 .journey .path:last-of-type .text:before {
