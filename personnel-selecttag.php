@@ -212,6 +212,8 @@ include 'footer.php';
 
         if (tagList.length < 1)
         {
+            tContent = '';
+            $(tContent).appendTo('#tableContent');
             tContent = '<p>No tags found. Please scan a tag.</p>';
             $(tContent).appendTo('#tableContent');
             $('#tableTags').hide();

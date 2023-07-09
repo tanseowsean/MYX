@@ -199,13 +199,6 @@ include 'footer.php'
 
         $('#checkinText').append(tempText);
 
-        // var checkInPath = document.createElement('div');
-        // checkInPath.className = "path";
-        // var checkInText = document.createElement('div');
-        // checkInText.className = "text";
-
-        // checkInText.innerHTML = "Baggage checked into "<strong>X</strong> airport at <strong>XX:XX</strong>
-
         for(let i=1; i<timelineLength; i++)
         {
             var pathDiv = document.createElement('div');

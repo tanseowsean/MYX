@@ -60,7 +60,8 @@ if(isset($_POST['createtracking_btn']))
                 'trackingTime' => $trackingTime,
                 'lastPoint' => $lastPoint,
                 'latestPoint' => $aId,
-                'bookingNo' => $bookingNo
+                'bookingNo' => $bookingNo,
+                'flightID' => $fId
             ];
 
             // update booking usage
@@ -111,10 +112,5 @@ else
     header('Location: personnel-checkinairport.php');
     exit();
 }
-
-# check if booking exists, if do not exist, alert message & return to checkin
-# if booking exist, check if match with passport number
-# if match, proceed to tagging page
-# if does not match, alert message & return to checkin
 
 ?>

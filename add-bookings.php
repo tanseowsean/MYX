@@ -10,7 +10,7 @@ if(isset($_POST['addbooking_btn']))
     $bookingNum = $_POST['bookingNo'];
     $identityNum = $_POST['identityNo'];
     $hashedIdentityNum = md5($identityNum);
-    $identityType = $_POST['identityNo'];
+    $identityType = $_POST['identityType'];
     $fId = $_POST['flightID'];
 
     // validate for empty input

@@ -17,11 +17,12 @@ if (isset($_POST['addflights_btn']))
     $fArriveConfig = $_POST['fArriveConfig'];
     
     $fYear = substr($fDate, 0, 4);
-    $fMonth = substr($fDate, 5, 7);
+    $fMonth = substr($fDate, 5, 2);
     $fDay = substr($fDate, 8, 10);
 
     // create flight ID
-    $fId = "F".$fYear.$fMonth.$fDay.$fAircraft;
+    $fId = "F".$fYear.$fMonth;
+    $fId = $fId.$fDay.$fAircraft;
 
     $db = new FirestoreClient([
         'projectId' => 'myx-baggage' //Get firestore project id

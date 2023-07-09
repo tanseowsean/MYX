@@ -1,10 +1,51 @@
 <?php
+require 'vendor/autoload.php';
+use Google\Cloud\Firestore\FirestoreClient;
+
 session_start();
 if (!isset($_SESSION['personnelUser'])) {
     header('Location: index.php');
     exit();
 } else {
+    $db = new FirestoreClient([
+        'projectId' => 'myx-baggage' //Get firestore project id
+    ]);
 
+    $snapshot = $db->collection('trackings')->documents();
+    $totalC = 0;
+    $ongoingC = 0;
+    $completedC = 0;
+    $lastPoint = "";
+    $latestPoint = "";
+
+    foreach($snapshot as $tracking)
+    {
+        $lastPoint = $tracking['lastPoint'];
+        $latestPoint = $tracking['latestPoint'];
+
+        if($lastPoint == $latestPoint)
+        {
+            $completedC++;
+        }
+        else
+        {
+            $ongoingC++;
+        }
+        $totalC++;
+    }
+
+    $db->collection('analytics')->document('baggageStatusAnalytics')->update([
+        ['path' => 'completedCount', 'value' => $completedC]
+    ]);
+
+    $db->collection('analytics')->document('baggageStatusAnalytics')->update([
+        ['path' => 'ongoingCount', 'value' => $ongoingC]
+    ]);
+
+    $db->collection('analytics')->document('baggageStatusAnalytics')->update([
+        ['path' => 'totalCount', 'value' => $totalC]
+    ]);
+    
     include 'personnel-header.php';
 }
 ?>
@@ -19,7 +60,7 @@ if (!isset($_SESSION['personnelUser'])) {
         Overall Baggage Tracking Status
     </div>
 
-    <div id="chartDiv" class="chart-wrapper">
+    <div style="width:400px; margin:0 auto">
         <canvas id="myChart"></canvas>
     </div>
 </div>

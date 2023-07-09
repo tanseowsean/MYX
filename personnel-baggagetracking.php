@@ -24,7 +24,7 @@ if (!isset($_SESSION['personnelUser'])) {
 
         try
         {
-            if ($db->collection('flights')->document($fId)->snapshot()->exists())
+            if ($db->collection('flights')->document($flightID)->snapshot()->exists())
             {
                 include 'personnel-header.php';
             }
@@ -59,7 +59,7 @@ if (!isset($_SESSION['personnelUser'])) {
             <thead>
                 <th>No.</th>
                 <th>Tracking ID</th>
-                <th>Booking ID</th>
+                <th>Booking Number</th>
                 <th>Tracking Point</th>
                 <th></th>
             </thead>
@@ -145,7 +145,7 @@ include 'footer.php';
     var no = 0;
     var tbody = document.getElementById('tbodyTrackings');
 
-    function addItemToTable(trackingID, bookingID, trackingPoints, trackingTime) {
+    function addItemToTable(trackingID, bookingNo, trackingPoints, trackingTime, flightID) {
         var trow = document.createElement('tr');
         var td1 = document.createElement('td');
         var td2 = document.createElement('td');
@@ -155,7 +155,7 @@ include 'footer.php';
 
         td1.innerHTML = ++no;
         td2.innerHTML = trackingID;
-        td3.innerHTML = bookingID;
+        td3.innerHTML = bookingNo;
 
         var pointsLength = trackingPoints.length;
         var timeLength = trackingTime.length;
@@ -202,7 +202,7 @@ include 'footer.php';
         inputField2.value = flightID;
         var btn = document.createElement('input');
         btn.type = "submit";
-        btn.value = "View";
+        btn.value = "Delete";
         btn.className = "pSelectTableBtn";
         form.appendChild(inputField);
         form.appendChild(inputField2);
@@ -221,8 +221,8 @@ include 'footer.php';
     function addAllItemToTable(idList, trackingList) {
         no = 0;
         tbody.innerHTML = "";
-        tracking.forEach(element => {
-            addItemToTable(idList[no], element.bookingID, element.trackingPoints, element.trackingTime);
+        trackingList.forEach(element => {
+            addItemToTable(idList[no], element.bookingNo, element.trackingPoints, element.trackingTime, element.flightID);
         });
     }
 
