@@ -1,51 +1,9 @@
 <?php
-require 'vendor/autoload.php';
-use Google\Cloud\Firestore\FirestoreClient;
-
 session_start();
 if (!isset($_SESSION['personnelUser'])) {
     header('Location: index.php');
     exit();
 } else {
-    $db = new FirestoreClient([
-        'projectId' => 'myx-baggage' //Get firestore project id
-    ]);
-
-    $snapshot = $db->collection('trackings')->documents();
-    $totalC = 0;
-    $ongoingC = 0;
-    $completedC = 0;
-    $lastPoint = "";
-    $latestPoint = "";
-
-    foreach($snapshot as $tracking)
-    {
-        $lastPoint = $tracking['lastPoint'];
-        $latestPoint = $tracking['latestPoint'];
-
-        if($lastPoint == $latestPoint)
-        {
-            $completedC++;
-        }
-        else
-        {
-            $ongoingC++;
-        }
-        $totalC++;
-    }
-
-    $db->collection('analytics')->document('baggageStatusAnalytics')->update([
-        ['path' => 'completedCount', 'value' => $completedC]
-    ]);
-
-    $db->collection('analytics')->document('baggageStatusAnalytics')->update([
-        ['path' => 'ongoingCount', 'value' => $ongoingC]
-    ]);
-
-    $db->collection('analytics')->document('baggageStatusAnalytics')->update([
-        ['path' => 'totalCount', 'value' => $totalC]
-    ]);
-    
     include 'personnel-header.php';
 }
 ?>
@@ -93,28 +51,61 @@ include 'footer.php';
 
     //function to update data in real time whenever there are changes in database record
     function getAllDataRealtime() {
-        db.collection("analytics").onSnapshot((querySnapshot) => {
-            var allData = [];
-            var allID = [];
-
-            var analyticType = "baggageStatusAnalytics";
+        db.collection("trackings").onSnapshot((querySnapshot) => {
+            var totalC = 0;
+            var ongoingC = 0;
+            var completedC = 0;
+            var lastPoint = "";
+            var latestPoint = "";
 
             querySnapshot.forEach(doc => {
-                allData.push(doc.data());
-                allID.push(doc.id);
+                lastPoint = doc.data().lastPoint;
+                latestPoint = doc.data().latestPoint;
+
+                if (lastPoint == latestPoint)
+                {
+                    completedC++;
+                }
+                else
+                {
+                    ongoingC++;
+                }
+
+                totalC++;
+                lastPoint = "";
+                latestPoint = "";
             });
 
-            var requiredData = [];
+            const analyticsRef = db.collection("analytics").doc("baggageStatusAnalytics");
+            analyticsRef.update({
+                totalCount: totalC,
+                ongoingCount: ongoingC,
+                completedCount: completedC
+            });
 
-            for(let i=0; i<allID.length; i++)
-            {
-                if(allID[i] == analyticType)
+            db.collection("analytics").onSnapshot((querySnapshot) => {
+                var allData = [];
+                var allID = [];
+
+                var analyticType = "baggageStatusAnalytics";
+
+                querySnapshot.forEach(doc => {
+                    allData.push(doc.data());
+                    allID.push(doc.id);
+                });
+
+                var requiredData = [];
+
+                for(let i=0; i<allID.length; i++)
                 {
-                    requiredData.push(allData[i]);
+                    if(allID[i] == analyticType)
+                    {
+                        requiredData.push(allData[i]);
+                    }
                 }
-            }
 
-            prepareChart(requiredData);
+                prepareChart(requiredData);
+            });
         });
     }
 
